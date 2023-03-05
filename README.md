@@ -1,5 +1,5 @@
 # What is this?
-Piatier is a Torrent search engine for desktop. Simplistic and easy to use. Just build and your ready to go.
+Piatier is a Torrent search engine for desktop. Simplistic and easy to use. Just build and you're ready to go.
 
 ## Engine Tab
 ![Piatier_7cuWHRbRMu](https://user-images.githubusercontent.com/79751099/222937091-2c6069dd-53bb-4bab-92a1-db0e12e126cd.png)
