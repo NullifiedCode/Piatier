@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piatier", "Piatier\Piatier.csproj", "{68610A03-8DDD-4740-BB85-E1841DB26756}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68610A03-8DDD-4740-BB85-E1841DB26756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68610A03-8DDD-4740-BB85-E1841DB26756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68610A03-8DDD-4740-BB85-E1841DB26756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68610A03-8DDD-4740-BB85-E1841DB26756}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1521180-5950-4892-AD43-C2B9319CBADA}
+	EndGlobalSection
+EndGlobal
