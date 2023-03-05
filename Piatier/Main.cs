@@ -117,6 +117,24 @@ namespace Piatier
                         case "399":
                             category = "Other OS";
                             break;
+                        case "408":
+                            category = "Android";
+                            break;
+                        case "103":
+                            category = "Sound Clips";
+                            break;
+                        case "605":
+                            category = "Physibles";
+                            break;
+                        case "503":
+                            category = "Pictures";
+                            break;
+                        case "206":
+                            category = "Handheld";
+                            break;
+                        case "102":
+                            category = "Audio Books";
+                            break;
                         }
 
                     Torrent tor = new Torrent();
