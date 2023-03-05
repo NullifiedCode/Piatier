@@ -12,7 +12,7 @@ null or [NullifiedCode](https://github.com/NullifiedCode/)<br>
 [Bunifu Framework](https://bunifuframework.com/)
 
 ## Reminder
-If you do not want to have legal issues regarding your ISP and you torrenting. Please use a VPN & Proxy. I suggest MullvadVPN its the cheapest and has proxy support. 
+If you do not want to have legal issues regarding your ISP and you torrenting. Please use a VPN & Proxy. I suggest [MullvadVPN](https://mullvad.net/en/) its the cheapest and has proxy support. 
 
 ## Disclaimer
 You are responsible for what you do with this program & what you torrent. I was just the creator behind it.
