@@ -162,7 +162,7 @@ namespace Piatier
 
                                     Torrent tor = new Torrent();
                                     tor.id = bb;
-                                    tor.link = "https://www.1377x.to/" + link;
+                                    tor.link = "https://www.1377x.to" + link;
                                     tor.seeders = seeders;
                                     tor.category = category;
                                     tor.size = size;
