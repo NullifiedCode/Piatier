@@ -436,15 +436,18 @@ namespace Piatier
 
         private void GetTrackers()
         {
+            Trackers.Clear();
+            richTextBox1.Text = "";
             guna2MessageDialog1.Icon = MessageDialogIcon.Information;
             guna2MessageDialog1.Show("Scraping for Trackers... Please wait.", "Information");
+            var trackers = richTextBox2.Lines; // Dumb fix haha
             new Thread(() =>
             {
-                for (int i = 0; i < richTextBox2.Lines.Length; i++)
+                for (int i = 0; i < trackers.Length; i++)
                 {
-                    if (string.IsNullOrEmpty(richTextBox2.Lines[i])) return;
+                    if (string.IsNullOrEmpty(trackers[i])) return;
 
-                    var r = HTTPUtils.Get(richTextBox2.Lines[i]);
+                    var r = HTTPUtils.Get(trackers[i]);
                     if(r != null)
                     {
                         if (r.IsOK)
@@ -466,9 +469,18 @@ namespace Piatier
 
                 this.Invoke(new Action(() =>
                 {
-                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                    guna2MessageDialog1.Show("Found "+Trackers.Count()+" trackers.", "Information");
-                    richTextBox1.Lines = Trackers.ToArray();
+                    if (Trackers.Count > 0)
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                        guna2MessageDialog1.Show("Found " + Trackers.Count() + " trackers.", "Information");
+                        richTextBox1.Lines = Trackers.ToArray();
+                    }
+                    else
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                        guna2MessageDialog1.Show("Sadly, I didnt find any trackers.", "Error");
+
+                    }
                     guna2Button2.Enabled = true;
                 }));
             }).Start();

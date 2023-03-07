@@ -73,6 +73,7 @@
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2ToggleSwitch5 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlToolTip1 = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
@@ -484,6 +485,7 @@
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(91, 20);
             this.guna2HtmlLabel2.TabIndex = 1;
             this.guna2HtmlLabel2.Text = "Ignore Cache";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel2, "Ignores the cache entirely. When searching for a result");
             // 
             // guna2ToggleSwitch2
             // 
@@ -526,6 +528,7 @@
             this.guna2HtmlLabel3.Size = new System.Drawing.Size(156, 20);
             this.guna2HtmlLabel3.TabIndex = 3;
             this.guna2HtmlLabel3.Text = "Always Override Cache";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel3, "Auto over writes the old cache with the new data.");
             // 
             // guna2MessageDialog2
             // 
@@ -636,6 +639,12 @@
             this.guna2HtmlLabel6.TabIndex = 5;
             this.guna2HtmlLabel6.Text = "Kickass";
             // 
+            // guna2HtmlToolTip1
+            // 
+            this.guna2HtmlToolTip1.AllowLinksHandling = true;
+            this.guna2HtmlToolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2HtmlToolTip1.MaximumSize = new System.Drawing.Size(0, 0);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -710,6 +719,7 @@
         private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch3;
         private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private Guna.UI2.WinForms.Guna2HtmlToolTip guna2HtmlToolTip1;
     }
 }
 
