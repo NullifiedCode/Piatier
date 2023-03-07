@@ -50,8 +50,8 @@ namespace Piatier
                 if (o.Count() > 1)
                     foreach (var z in o)
                     {
-                        bb++;
                         if (string.IsNullOrEmpty(z.name)) return;
+                        bb++;
                         var category = "";
                         switch (z.category)
                         {
@@ -163,11 +163,11 @@ namespace Piatier
                             var xx = x2.ToString().Split('\n');
                             for (int i = 0; i < xx.Length; i++)
                             {
-                                bb++;
                                 var line = xx[i];
                                 var category = "";
                                 if (line.Contains("/torrent/") && line.Contains("href"))
                                 {
+                                    bb++;
                                     category = Regex.Replace(xx[i - 1], "\\/sub\\/[a-zA-Z]+\\/", "").Replace("/1/", "").Replace("<td class=\"coll-1 name\"><a href=\"", "").Replace("\" class=\"icon\">", "");
                                     var seeders = xx[i + 1].Replace("<td class=\"coll-2 seeds\">", "").Replace("</td>", "");
                                     var size = xx[i + 4].Replace("<td class=\"coll-4 size mob-uploader\">", "").Replace("</td>", "");
@@ -208,11 +208,10 @@ namespace Piatier
                             var lines = data3.Split('\n');
                             for (int k = 0; k < lines.Length; k++)
                             {
-                                bb++;
+                                
                                 Torrent tor = new Torrent();
                                 tor.id = bb;
                                 tor.source = "Kickass";
-
 
                                 if (lines[k].Contains("markeredBlock torType filmType"))
                                     tor.category = "TV / Movie";
@@ -226,6 +225,7 @@ namespace Piatier
 
                                 if (!string.IsNullOrWhiteSpace(tor.category))
                                 {
+                                    bb++;
                                     if (lines[k + 1].Contains("cellMainLink"))
                                     {
                                         tor.link = "https://kickasstorrents.to" + Regex.Match(lines[k + 1], "\\/[a-zA-Z0-9-_]+.html").ToString();
@@ -264,9 +264,18 @@ namespace Piatier
                     if (!Directory.Exists("./piatier-cache"))
                         Directory.CreateDirectory("./piatier-cache");
 
-                    if (!File.Exists($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json"))
+                    var fileName = guna2TextBox1.Text.ToLower();
+                    fileName = fileName.Replace(" ", "-");
+                    fileName = fileName.Replace(":", "");
+                    fileName = fileName.Replace(";", "");
+                    fileName = fileName.Replace(",", "");
+                    fileName = fileName.Replace("/", "");
+                    fileName = fileName.Replace("\'", "");
+                    fileName = fileName.Replace("\"", "");
+
+                    if (!File.Exists($"./piatier-cache/{fileName}.json"))
                     {
-                        File.WriteAllText($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json", JsonConvert.SerializeObject(Torrents));
+                        File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents));
                         guna2TextBox1.Enabled = true;
                     }
                     else
@@ -274,7 +283,7 @@ namespace Piatier
                         var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
                         if (result == DialogResult.Yes)
                         {
-                            File.WriteAllText($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json", JsonConvert.SerializeObject(Torrents));
+                            File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents));
                             guna2TextBox1.Enabled = true;
                         }
                     }
@@ -290,24 +299,50 @@ namespace Piatier
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(guna2TextBox1.Text))
+            {
+                guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                guna2MessageDialog1.Show("Search arg is null or nothing. Please enter something.", "Error");
+                return;
+            }
+
             guna2TextBox1.Enabled = false;
 
             if (!Directory.Exists("./piatier-cache"))
                 Directory.CreateDirectory("./piatier-cache");
 
-            if (File.Exists($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json"))
+
+            var fileName = guna2TextBox1.Text.ToLower();
+            fileName = fileName.Replace(" ", "-");
+            fileName = fileName.Replace(":", "");
+            fileName = fileName.Replace(";", "");
+            fileName = fileName.Replace(",", "");
+            fileName = fileName.Replace("/", "");
+            fileName = fileName.Replace("\'", "");
+            fileName = fileName.Replace("\"", "");
+
+            if (File.Exists($"./piatier-cache/{fileName}.json"))
             {
                 var result = guna2MessageDialog2.Show("Old cache for search term found. Do you want to load the old results?", "Information");
                 if (result == DialogResult.Yes)
                 {
-                    Torrents = JsonConvert.DeserializeObject<List<Torrent>>(File.ReadAllText($"./searches/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json"));
+                    try {
+                        Torrents = JsonConvert.DeserializeObject<List<Torrent>>(File.ReadAllText($"./piatier-cache/{fileName}.json"));
 
-                    Sort();
-                    guna2Button1.Enabled = true;
-                    guna2Button3.Enabled = true;
-                    guna2TextBox1.Enabled = true;
-                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                    guna2MessageDialog1.Show("Done loading ;)", "Information");
+                        Sort();
+                        guna2Button1.Enabled = true;
+                        guna2Button3.Enabled = true;
+                        guna2TextBox1.Enabled = true;
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                        guna2MessageDialog1.Show("Done loading ;)", "Information");
+                    }
+                    catch
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                        guna2MessageDialog1.Show("Cannot load cache for current search result. ", "Error");
+                        guna2TextBox1.Enabled = true;
+                    }
                 }
                 else
                 {
