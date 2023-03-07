@@ -18,11 +18,5 @@ namespace Piatier.Utils
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
-
-        public static DateTime UnixTime(string timestamp)
-        {
-            var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return dateTime.AddSeconds(int.Parse(timestamp));
-        }
     }
 }

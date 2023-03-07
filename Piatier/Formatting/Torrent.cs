@@ -15,5 +15,11 @@ namespace Piatier.Formatting
         public string category { get; set; }
         public string size { get; set; }
         public string source { get; set; }
+
+        public override string ToString()
+        {
+            // Not needed much tbh
+            return $"{id}:{link}:{source}:{category}:{seeders}:{size}";
+        }
     }
 }

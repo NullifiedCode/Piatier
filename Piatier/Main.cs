@@ -23,6 +23,8 @@ namespace Piatier
         private void Main_Load(object sender, EventArgs e)
         {
             guna2TextBox1.AcceptsReturn = true;
+            if (!Directory.Exists("./piatier-cache"))
+                Directory.CreateDirectory("./piatier-cache");
         }
 
 
@@ -36,7 +38,7 @@ namespace Piatier
             Column1.DataGridView.Rows.Clear();
             guna2Button1.Enabled = false;
             guna2Button3.Enabled = false;
-            
+
             #region funny search
 
             new Thread(() =>
@@ -45,111 +47,111 @@ namespace Piatier
                 var data = h.ToString();
 
                 var o = JsonConvert.DeserializeObject<List<PirateBayItem>>(data);
-                if(o.Count() > 1)
-                foreach (var z in o)
-                {
-                    bb++;
-                    if (string.IsNullOrEmpty(z.name)) return;
-                    var category = "";
-                    switch (z.category)
+                if (o.Count() > 1)
+                    foreach (var z in o)
                     {
-                        case "207":
-                            category = "HD Movies";
-                            break;
-                        case "201":
-                            category = "Movies";
-                            break;
-                        case "208":
-                            category = "HD TV-Show";
-                            break;
-                        case "205":
-                            category = "TV-Shows";
-                            break;
-                        case "101":
-                            category = "Music";
-                            break;
-                        case "601":
-                            category = "E-Book";
-                            break;
-                        case "504":
-                            category = "Games";
-                            break;
-                        case "401":
-                            category = "PC";
-                            break;
-                        case "404":
-                            category = "XBOX360";
-                            break;
-                        case "403":
-                            category = "PSx";
-                            break;
-                        case "203":
-                            category = "Music Video";
-                            break;
-                        case "104":
-                            category = "FLAC";
-                            break;
-                        case "506":
-                            category = "Movie Clips";
-                            break;
-                        case "602":
-                            category = "Comic";
-                            break;
-                        case "599":
-                            category = "Other";
-                            break;
-                        case "699":
-                            category = "Other";
-                            break;
-                        case "199":
-                            category = "Other";
-                            break;
-                        case "501":
-                            category = "Porn";
-                            break;
-                        case "505":
-                            category = "Porn";
-                            break;
-                        case "301":
-                            category = "Windows";
-                            break;
-                        case "302":
-                            category = "Mac/Apple";
-                            break;
-                        case "399":
-                            category = "Other OS";
-                            break;
-                        case "408":
-                            category = "Android";
-                            break;
-                        case "103":
-                            category = "Sound Clips";
-                            break;
-                        case "605":
-                            category = "Physibles";
-                            break;
-                        case "503":
-                            category = "Pictures";
-                            break;
-                        case "206":
-                            category = "Handheld";
-                            break;
-                        case "102":
-                            category = "Audio Books";
-                            break;
+                        bb++;
+                        if (string.IsNullOrEmpty(z.name)) return;
+                        var category = "";
+                        switch (z.category)
+                        {
+                            case "207":
+                                category = "HD Movies";
+                                break;
+                            case "201":
+                                category = "Movies";
+                                break;
+                            case "208":
+                                category = "HD TV-Show";
+                                break;
+                            case "205":
+                                category = "TV-Shows";
+                                break;
+                            case "101":
+                                category = "Music";
+                                break;
+                            case "601":
+                                category = "E-Book";
+                                break;
+                            case "504":
+                                category = "Games";
+                                break;
+                            case "401":
+                                category = "PC";
+                                break;
+                            case "404":
+                                category = "XBOX360";
+                                break;
+                            case "403":
+                                category = "PSx";
+                                break;
+                            case "203":
+                                category = "Music Video";
+                                break;
+                            case "104":
+                                category = "FLAC";
+                                break;
+                            case "506":
+                                category = "Movie Clips";
+                                break;
+                            case "602":
+                                category = "Comic";
+                                break;
+                            case "599":
+                                category = "Other";
+                                break;
+                            case "699":
+                                category = "Other";
+                                break;
+                            case "199":
+                                category = "Other";
+                                break;
+                            case "501":
+                                category = "Porn";
+                                break;
+                            case "505":
+                                category = "Porn";
+                                break;
+                            case "301":
+                                category = "Windows";
+                                break;
+                            case "302":
+                                category = "Mac/Apple";
+                                break;
+                            case "399":
+                                category = "Other OS";
+                                break;
+                            case "408":
+                                category = "Android";
+                                break;
+                            case "103":
+                                category = "Sound Clips";
+                                break;
+                            case "605":
+                                category = "Physibles";
+                                break;
+                            case "503":
+                                category = "Pictures";
+                                break;
+                            case "206":
+                                category = "Handheld";
+                                break;
+                            case "102":
+                                category = "Audio Books";
+                                break;
                         }
 
-                    Torrent tor = new Torrent();
-                    tor.id = bb;
-                    tor.link = "https://thepiratebay.org/description.php?id=" + z.id;
-                    tor.seeders = z.seeders;
-                    tor.category = category;
-                    tor.size = MiscUtils.BytesToString(long.Parse(z.size));
-                    tor.name = z.name;
-                    tor.source = "PirateBay";
-                    if (!Torrents.Contains(tor))
-                        Torrents.Add(tor);
-                }
+                        Torrent tor = new Torrent();
+                        tor.id = bb;
+                        tor.link = "https://thepiratebay.org/description.php?id=" + z.id;
+                        tor.seeders = z.seeders;
+                        tor.category = category;
+                        tor.size = MiscUtils.BytesToString(long.Parse(z.size));
+                        tor.name = z.name;
+                        tor.source = "PirateBay";
+                        if (!Torrents.Contains(tor))
+                            Torrents.Add(tor);
+                    }
 
                 for (int x = 0; x < 15; x++)
                 {
@@ -195,13 +197,13 @@ namespace Piatier
 
                 }
 
-
                 for (int x = 0; x < 15; x++)
                 {
                     var h1 = HTTPUtils.Get($"https://kickasstorrents.to/search/" + guna2TextBox1.Text.Replace(" ", " ") + $"/{x}");
-                    if(h1 != null)
+                    if (h1 != null)
                     {
-                        if (h1.IsOK) {
+                        if (h1.IsOK)
+                        {
                             var data3 = h1.ToString();
                             var lines = data3.Split('\n');
                             for (int k = 0; k < lines.Length; k++)
@@ -251,15 +253,34 @@ namespace Piatier
                     }
                 }
 
-                this.Invoke(new Action(() => { 
+                this.Invoke(new Action(() =>
+                {
                     Sort();
                     guna2Button1.Enabled = true;
                     guna2Button3.Enabled = true;
                     guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                     guna2MessageDialog1.Show("Done loading ;)", "Information");
+
+                    if (!Directory.Exists("./piatier-cache"))
+                        Directory.CreateDirectory("./piatier-cache");
+
+                    if (!File.Exists($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json"))
+                    {
+                        File.WriteAllText($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json", JsonConvert.SerializeObject(Torrents));
+                        guna2TextBox1.Enabled = true;
+                    }
+                    else
+                    {
+                        var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
+                        if (result == DialogResult.Yes)
+                        {
+                            File.WriteAllText($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json", JsonConvert.SerializeObject(Torrents));
+                            guna2TextBox1.Enabled = true;
+                        }
+                    }
+                   
                 }));
             }).Start();
-
             #endregion
 
             Torrents.Clear();
@@ -269,7 +290,34 @@ namespace Piatier
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            DoSearch();
+            guna2TextBox1.Enabled = false;
+
+            if (!Directory.Exists("./piatier-cache"))
+                Directory.CreateDirectory("./piatier-cache");
+
+            if (File.Exists($"./piatier-cache/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json"))
+            {
+                var result = guna2MessageDialog2.Show("Old cache for search term found. Do you want to load the old results?", "Information");
+                if (result == DialogResult.Yes)
+                {
+                    Torrents = JsonConvert.DeserializeObject<List<Torrent>>(File.ReadAllText($"./searches/{guna2TextBox1.Text.ToLower().Replace(" ", "-")}.json"));
+
+                    Sort();
+                    guna2Button1.Enabled = true;
+                    guna2Button3.Enabled = true;
+                    guna2TextBox1.Enabled = true;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                    guna2MessageDialog1.Show("Done loading ;)", "Information");
+                }
+                else
+                {
+                    DoSearch();
+                }
+            }
+            else
+            {
+                DoSearch();
+            }
         }
 
         private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
