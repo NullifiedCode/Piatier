@@ -495,8 +495,6 @@ namespace Piatier
 
         private void guna2TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // I dont trust em either
-
             if(guna2TabControl1.SelectedTab.Name == "tabPage1")
             {
                 guna2Button3.Visible = true;
