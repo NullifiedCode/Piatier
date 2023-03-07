@@ -280,11 +280,19 @@ namespace Piatier
                     }
                     else
                     {
-                        var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
-                        if (result == DialogResult.Yes)
+                        if (guna2ToggleSwitch2.Checked)
                         {
                             File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents));
                             guna2TextBox1.Enabled = true;
+                        }
+                        else
+                        {
+                            var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
+                            if (result == DialogResult.Yes)
+                            {
+                                File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents));
+                                guna2TextBox1.Enabled = true;
+                            }
                         }
                     }
                    
@@ -322,7 +330,7 @@ namespace Piatier
             fileName = fileName.Replace("\'", "");
             fileName = fileName.Replace("\"", "");
 
-            if (File.Exists($"./piatier-cache/{fileName}.json"))
+            if (File.Exists($"./piatier-cache/{fileName}.json") && !guna2ToggleSwitch1.Checked)
             {
                 var result = guna2MessageDialog2.Show("Old cache for search term found. Do you want to load the old results?", "Information");
                 if (result == DialogResult.Yes)
@@ -345,9 +353,7 @@ namespace Piatier
                     }
                 }
                 else
-                {
                     DoSearch();
-                }
             }
             else
             {
