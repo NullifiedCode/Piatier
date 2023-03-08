@@ -10,7 +10,7 @@ namespace Piatier.Utils
 {
     internal class HTTPUtils
     {
-        public static HttpResponse Get(string url, string proxy = "", bool log = true)
+        public static HttpResponse Get(string url, string proxy = "")
         {
             HttpResponse response = null;
             try

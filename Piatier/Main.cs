@@ -170,6 +170,8 @@ namespace Piatier
                     try
                     {
                         Torrents = JsonConvert.DeserializeObject<List<Torrent>>(File.ReadAllText($"./piatier-cache/{fileName}.json"));
+                        if(guna2ToggleSwitch8.Checked)
+                            Torrents = Torrents.Where(t => int.Parse(t.seeders) >= guna2NumericUpDown1.Value).ToList();
 
                         Sort();
                         guna2Button1.Enabled = true;
@@ -233,6 +235,8 @@ namespace Piatier
             Column1.DataGridView.Rows.Clear();
             Torrents.Sort((c, y) => int.Parse(c.seeders) - int.Parse(y.seeders));
             Torrents.Reverse();
+            if (guna2ToggleSwitch8.Checked)
+                Torrents = Torrents.Where(t => int.Parse(t.seeders) >= guna2NumericUpDown1.Value).ToList();
             foreach (Torrent tor in Torrents)
             {
                 var data = $"{tor.category}|{tor.name}|{tor.size}|{tor.seeders}";
@@ -373,6 +377,16 @@ namespace Piatier
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             richTextBox3.Text = "";
+        }
+
+        private void guna2NumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if(guna2NumericUpDown1.Value == 0)
+            {
+                guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                guna2MessageDialog1.Show("Seeders cannot be zero. Resetting to 1", "Information");
+                guna2NumericUpDown1.Value = 1;
+            }
         }
     }
 }
