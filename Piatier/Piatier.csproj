@@ -207,7 +207,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\1337x.cs" />
+    <Compile Include="Sources\Kickass.cs" />
+    <Compile Include="Sources\PirateBay.cs" />
+    <Compile Include="Sources\Trackers.cs" />
     <Compile Include="Utils\HTTPUtils.cs" />
+    <Compile Include="Utils\LogUtils.cs" />
     <Compile Include="Utils\MiscUtils.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

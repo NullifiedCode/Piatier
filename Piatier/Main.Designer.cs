@@ -58,6 +58,13 @@
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.guna2GroupBox3 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2ToggleSwitch5 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2ToggleSwitch3 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2ToggleSwitch4 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GroupBox2 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -66,14 +73,12 @@
             this.guna2ToggleSwitch1 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
-            this.guna2GroupBox3 = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2ToggleSwitch3 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
-            this.guna2ToggleSwitch4 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2ToggleSwitch5 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
-            this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlToolTip1 = new Guna.UI2.WinForms.Guna2HtmlToolTip();
+            this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
+            this.guna2GroupBox4 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
@@ -81,9 +86,10 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.guna2GroupBox3.SuspendLayout();
             this.guna2GroupBox2.SuspendLayout();
             this.guna2GroupBox1.SuspendLayout();
-            this.guna2GroupBox3.SuspendLayout();
+            this.guna2GroupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2BorderlessForm1
@@ -97,6 +103,7 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2Panel1.Controls.Add(this.guna2Button4);
             this.guna2Panel1.Controls.Add(this.guna2Button3);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
@@ -124,6 +131,7 @@
             this.guna2Button3.Size = new System.Drawing.Size(98, 21);
             this.guna2Button3.TabIndex = 5;
             this.guna2Button3.Text = "Clear Results";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2Button3, "Clears all torrent data and torrents display.");
             this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
             // guna2HtmlLabel1
@@ -252,7 +260,7 @@
             this.guna2DataGridView1.Name = "guna2DataGridView1";
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowTemplate.Height = 25;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(1111, 480);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(1111, 485);
             this.guna2DataGridView1.TabIndex = 3;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -338,7 +346,7 @@
             this.guna2TabControl1.Location = new System.Drawing.Point(0, 35);
             this.guna2TabControl1.Name = "guna2TabControl1";
             this.guna2TabControl1.SelectedIndex = 0;
-            this.guna2TabControl1.Size = new System.Drawing.Size(1125, 570);
+            this.guna2TabControl1.Size = new System.Drawing.Size(1125, 575);
             this.guna2TabControl1.TabButtonHoverState.BorderColor = System.Drawing.Color.Empty;
             this.guna2TabControl1.TabButtonHoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.guna2TabControl1.TabButtonHoverState.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
@@ -368,7 +376,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 44);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1117, 522);
+            this.tabPage1.Size = new System.Drawing.Size(1117, 527);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Engine";
             // 
@@ -380,7 +388,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 44);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1117, 522);
+            this.tabPage2.Size = new System.Drawing.Size(1117, 527);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Trackers";
             // 
@@ -395,7 +403,7 @@
             this.guna2Button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(192)))));
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.Location = new System.Drawing.Point(3, 479);
+            this.guna2Button2.Location = new System.Drawing.Point(3, 484);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
             this.guna2Button2.Size = new System.Drawing.Size(1111, 35);
@@ -414,21 +422,122 @@
             this.richTextBox1.ForeColor = System.Drawing.Color.Gray;
             this.richTextBox1.Location = new System.Drawing.Point(3, 3);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(1111, 473);
+            this.richTextBox1.Size = new System.Drawing.Size(1111, 478);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage3.Controls.Add(this.guna2GroupBox4);
             this.tabPage3.Controls.Add(this.guna2GroupBox3);
             this.tabPage3.Controls.Add(this.guna2GroupBox2);
             this.tabPage3.Controls.Add(this.guna2GroupBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1117, 522);
+            this.tabPage3.Size = new System.Drawing.Size(1117, 527);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Settings";
+            this.tabPage3.Text = "Settings & Logs";
+            // 
+            // guna2GroupBox3
+            // 
+            this.guna2GroupBox3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox3.Controls.Add(this.guna2ToggleSwitch5);
+            this.guna2GroupBox3.Controls.Add(this.guna2HtmlLabel6);
+            this.guna2GroupBox3.Controls.Add(this.guna2HtmlLabel4);
+            this.guna2GroupBox3.Controls.Add(this.guna2ToggleSwitch3);
+            this.guna2GroupBox3.Controls.Add(this.guna2ToggleSwitch4);
+            this.guna2GroupBox3.Controls.Add(this.guna2HtmlLabel5);
+            this.guna2GroupBox3.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2GroupBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2GroupBox3.ForeColor = System.Drawing.Color.DarkGray;
+            this.guna2GroupBox3.Location = new System.Drawing.Point(220, 3);
+            this.guna2GroupBox3.Name = "guna2GroupBox3";
+            this.guna2GroupBox3.Size = new System.Drawing.Size(295, 103);
+            this.guna2GroupBox3.TabIndex = 6;
+            this.guna2GroupBox3.Text = "Sources Settings";
+            // 
+            // guna2ToggleSwitch5
+            // 
+            this.guna2ToggleSwitch5.Checked = true;
+            this.guna2ToggleSwitch5.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch5.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch5.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch5.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch5.Location = new System.Drawing.Point(110, 46);
+            this.guna2ToggleSwitch5.Name = "guna2ToggleSwitch5";
+            this.guna2ToggleSwitch5.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch5.TabIndex = 6;
+            this.guna2ToggleSwitch5.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch5.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch5.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch5.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // guna2HtmlLabel6
+            // 
+            this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel6.Location = new System.Drawing.Point(151, 46);
+            this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(56, 20);
+            this.guna2HtmlLabel6.TabIndex = 5;
+            this.guna2HtmlLabel6.Text = "Kickass";
+            // 
+            // guna2HtmlLabel4
+            // 
+            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(47, 46);
+            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(42, 20);
+            this.guna2HtmlLabel4.TabIndex = 1;
+            this.guna2HtmlLabel4.Text = "1337x";
+            // 
+            // guna2ToggleSwitch3
+            // 
+            this.guna2ToggleSwitch3.Checked = true;
+            this.guna2ToggleSwitch3.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch3.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch3.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch3.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch3.Location = new System.Drawing.Point(6, 72);
+            this.guna2ToggleSwitch3.Name = "guna2ToggleSwitch3";
+            this.guna2ToggleSwitch3.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch3.TabIndex = 4;
+            this.guna2ToggleSwitch3.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch3.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch3.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch3.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // guna2ToggleSwitch4
+            // 
+            this.guna2ToggleSwitch4.Checked = true;
+            this.guna2ToggleSwitch4.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch4.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch4.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch4.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch4.Location = new System.Drawing.Point(6, 46);
+            this.guna2ToggleSwitch4.Name = "guna2ToggleSwitch4";
+            this.guna2ToggleSwitch4.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch4.TabIndex = 0;
+            this.guna2ToggleSwitch4.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch4.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch4.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch4.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // guna2HtmlLabel5
+            // 
+            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(47, 72);
+            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(66, 20);
+            this.guna2HtmlLabel5.TabIndex = 3;
+            this.guna2HtmlLabel5.Text = "PirateBay";
             // 
             // guna2GroupBox2
             // 
@@ -440,7 +549,7 @@
             this.guna2GroupBox2.ForeColor = System.Drawing.Color.DarkGray;
             this.guna2GroupBox2.Location = new System.Drawing.Point(3, 112);
             this.guna2GroupBox2.Name = "guna2GroupBox2";
-            this.guna2GroupBox2.Size = new System.Drawing.Size(474, 397);
+            this.guna2GroupBox2.Size = new System.Drawing.Size(512, 397);
             this.guna2GroupBox2.TabIndex = 6;
             this.guna2GroupBox2.Text = "Trackers List";
             // 
@@ -454,7 +563,7 @@
             this.richTextBox2.ForeColor = System.Drawing.Color.Gray;
             this.richTextBox2.Location = new System.Drawing.Point(0, 40);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(474, 357);
+            this.richTextBox2.Size = new System.Drawing.Size(512, 357);
             this.richTextBox2.TabIndex = 1;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -539,111 +648,91 @@
             this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
             this.guna2MessageDialog2.Text = null;
             // 
-            // guna2GroupBox3
-            // 
-            this.guna2GroupBox3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.guna2GroupBox3.Controls.Add(this.guna2ToggleSwitch5);
-            this.guna2GroupBox3.Controls.Add(this.guna2HtmlLabel6);
-            this.guna2GroupBox3.Controls.Add(this.guna2HtmlLabel4);
-            this.guna2GroupBox3.Controls.Add(this.guna2ToggleSwitch3);
-            this.guna2GroupBox3.Controls.Add(this.guna2ToggleSwitch4);
-            this.guna2GroupBox3.Controls.Add(this.guna2HtmlLabel5);
-            this.guna2GroupBox3.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.guna2GroupBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.guna2GroupBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GroupBox3.ForeColor = System.Drawing.Color.DarkGray;
-            this.guna2GroupBox3.Location = new System.Drawing.Point(220, 3);
-            this.guna2GroupBox3.Name = "guna2GroupBox3";
-            this.guna2GroupBox3.Size = new System.Drawing.Size(257, 103);
-            this.guna2GroupBox3.TabIndex = 6;
-            this.guna2GroupBox3.Text = "Sources Settings";
-            // 
-            // guna2HtmlLabel4
-            // 
-            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(47, 46);
-            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(42, 20);
-            this.guna2HtmlLabel4.TabIndex = 1;
-            this.guna2HtmlLabel4.Text = "1337x";
-            // 
-            // guna2ToggleSwitch3
-            // 
-            this.guna2ToggleSwitch3.Checked = true;
-            this.guna2ToggleSwitch3.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch3.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
-            this.guna2ToggleSwitch3.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch3.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch3.Location = new System.Drawing.Point(6, 72);
-            this.guna2ToggleSwitch3.Name = "guna2ToggleSwitch3";
-            this.guna2ToggleSwitch3.Size = new System.Drawing.Size(35, 20);
-            this.guna2ToggleSwitch3.TabIndex = 4;
-            this.guna2ToggleSwitch3.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch3.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch3.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch3.UncheckedState.InnerColor = System.Drawing.Color.White;
-            // 
-            // guna2ToggleSwitch4
-            // 
-            this.guna2ToggleSwitch4.Checked = true;
-            this.guna2ToggleSwitch4.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch4.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
-            this.guna2ToggleSwitch4.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch4.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch4.Location = new System.Drawing.Point(6, 46);
-            this.guna2ToggleSwitch4.Name = "guna2ToggleSwitch4";
-            this.guna2ToggleSwitch4.Size = new System.Drawing.Size(35, 20);
-            this.guna2ToggleSwitch4.TabIndex = 0;
-            this.guna2ToggleSwitch4.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch4.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch4.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch4.UncheckedState.InnerColor = System.Drawing.Color.White;
-            // 
-            // guna2HtmlLabel5
-            // 
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(47, 72);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(66, 20);
-            this.guna2HtmlLabel5.TabIndex = 3;
-            this.guna2HtmlLabel5.Text = "PirateBay";
-            // 
-            // guna2ToggleSwitch5
-            // 
-            this.guna2ToggleSwitch5.Checked = true;
-            this.guna2ToggleSwitch5.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch5.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
-            this.guna2ToggleSwitch5.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch5.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch5.Location = new System.Drawing.Point(95, 46);
-            this.guna2ToggleSwitch5.Name = "guna2ToggleSwitch5";
-            this.guna2ToggleSwitch5.Size = new System.Drawing.Size(35, 20);
-            this.guna2ToggleSwitch5.TabIndex = 6;
-            this.guna2ToggleSwitch5.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch5.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch5.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch5.UncheckedState.InnerColor = System.Drawing.Color.White;
-            // 
-            // guna2HtmlLabel6
-            // 
-            this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel6.Location = new System.Drawing.Point(136, 46);
-            this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(56, 20);
-            this.guna2HtmlLabel6.TabIndex = 5;
-            this.guna2HtmlLabel6.Text = "Kickass";
-            // 
             // guna2HtmlToolTip1
             // 
             this.guna2HtmlToolTip1.AllowLinksHandling = true;
             this.guna2HtmlToolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.guna2HtmlToolTip1.MaximumSize = new System.Drawing.Size(0, 0);
+            // 
+            // guna2AnimateWindow1
+            // 
+            this.guna2AnimateWindow1.AnimationType = Guna.UI2.WinForms.Guna2AnimateWindow.AnimateWindowType.AW_BLEND;
+            this.guna2AnimateWindow1.Interval = 300;
+            this.guna2AnimateWindow1.TargetForm = this;
+            // 
+            // guna2GroupBox4
+            // 
+            this.guna2GroupBox4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox4.Controls.Add(this.guna2Button5);
+            this.guna2GroupBox4.Controls.Add(this.richTextBox3);
+            this.guna2GroupBox4.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2GroupBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2GroupBox4.ForeColor = System.Drawing.Color.DarkGray;
+            this.guna2GroupBox4.Location = new System.Drawing.Point(521, 112);
+            this.guna2GroupBox4.Name = "guna2GroupBox4";
+            this.guna2GroupBox4.Size = new System.Drawing.Size(593, 397);
+            this.guna2GroupBox4.TabIndex = 7;
+            this.guna2GroupBox4.Text = "Logs";
+            // 
+            // richTextBox3
+            // 
+            this.richTextBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox3.DetectUrls = false;
+            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox3.ForeColor = System.Drawing.Color.Gray;
+            this.richTextBox3.Location = new System.Drawing.Point(0, 40);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.ReadOnly = true;
+            this.richTextBox3.Size = new System.Drawing.Size(593, 357);
+            this.richTextBox3.TabIndex = 1;
+            this.richTextBox3.Text = "";
+            // 
+            // guna2Button4
+            // 
+            this.guna2Button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2Button4.BorderRadius = 10;
+            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(192)))));
+            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button4.ForeColor = System.Drawing.Color.White;
+            this.guna2Button4.Location = new System.Drawing.Point(1045, 7);
+            this.guna2Button4.Name = "guna2Button4";
+            this.guna2Button4.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2Button4.Size = new System.Drawing.Size(29, 21);
+            this.guna2Button4.TabIndex = 6;
+            this.guna2Button4.Text = "R";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2Button4, "You should only click this if you have old cache files. Refering to non-indented " +
+        "json files.");
+            this.guna2Button4.Visible = false;
+            this.guna2Button4.Click += new System.EventHandler(this.guna2Button4_Click);
+            // 
+            // guna2Button5
+            // 
+            this.guna2Button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2Button5.BorderRadius = 10;
+            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(192)))));
+            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button5.ForeColor = System.Drawing.Color.White;
+            this.guna2Button5.Location = new System.Drawing.Point(490, 10);
+            this.guna2Button5.Name = "guna2Button5";
+            this.guna2Button5.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2Button5.Size = new System.Drawing.Size(98, 21);
+            this.guna2Button5.TabIndex = 7;
+            this.guna2Button5.Text = "Clear Logs";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2Button5, "Clears logs window when pressed.");
+            this.guna2Button5.Click += new System.EventHandler(this.guna2Button5_Click);
             // 
             // Main
             // 
@@ -670,11 +759,12 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.guna2GroupBox3.ResumeLayout(false);
+            this.guna2GroupBox3.PerformLayout();
             this.guna2GroupBox2.ResumeLayout(false);
             this.guna2GroupBox1.ResumeLayout(false);
             this.guna2GroupBox1.PerformLayout();
-            this.guna2GroupBox3.ResumeLayout(false);
-            this.guna2GroupBox3.PerformLayout();
+            this.guna2GroupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -720,6 +810,11 @@
         private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlToolTip guna2HtmlToolTip1;
+        private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
+        private Guna.UI2.WinForms.Guna2GroupBox guna2GroupBox4;
+        private System.Windows.Forms.RichTextBox richTextBox3;
+        private Guna.UI2.WinForms.Guna2Button guna2Button4;
+        private Guna.UI2.WinForms.Guna2Button guna2Button5;
     }
 }
 
