@@ -388,5 +388,25 @@ namespace Piatier
                 guna2NumericUpDown1.Value = 1;
             }
         }
+
+        private void guna2HtmlLabel8_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://mullvad.net/en/");
+        }
+
+        private void guna2HtmlLabel9_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/c0re100/qBittorrent-Enhanced-Edition");
+        }
+
+        private void guna2HtmlLabel10_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.proxifier.com/");
+        }
+
+        private void guna2HtmlLabel11_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.henrypp.org/product/simplewall");
+        }
     }
 }
