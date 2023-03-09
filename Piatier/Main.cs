@@ -35,100 +35,10 @@ namespace Piatier
         private static List<Torrent> Torrents = new List<Torrent>();
         private static List<string> Trackers = new List<string>();
         public static int indexCounter = 0;
-
-        private void DoSearch()
-        {
-            Torrents.Clear();
-            Column1.DataGridView.Rows.Clear();
-            guna2Button1.Enabled = false;
-            guna2Button3.Enabled = false;
-
-            #region funny search
-
-            new Thread(() =>
-            {
-                if (guna2ToggleSwitch3.Checked)
-                {
-                    var tor = Sources.PirateBay.GetTorrents(guna2TextBox1.Text);
-                    if (tor.Count() < 0) return; 
-                    foreach (var t in tor)
-                        Torrents.Add(t);
-                }
-                if (guna2ToggleSwitch4.Checked)
-                {
-                    var tor = Sources._1337x.GetTorrents(guna2TextBox1.Text);
-                    if (tor.Count() < 0) return;
-                    foreach (var t in tor)
-                        Torrents.Add(t);
-                }
-                if (guna2ToggleSwitch5.Checked)
-                {
-                    var tor = Sources.Kickass.GetTorrents(guna2TextBox1.Text);
-                    if (tor.Count() < 0) return;
-                    foreach (var t in tor)
-                        Torrents.Add(t);
-                }
-
-                this.Invoke(new Action(() =>
-                {
-                    Sort();
-                    guna2Button1.Enabled = true;
-                    guna2Button3.Enabled = true;
-                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                    guna2MessageDialog1.Show("Done loading ;)", "Information");
-                    richTextBox3.AppendText(LogUtils.FormatLog("Done loading results for \"" + guna2TextBox1.Text + "\""));
-
-                    if (!Directory.Exists("./piatier-cache"))
-                        Directory.CreateDirectory("./piatier-cache");
-
-                    var fileName = guna2TextBox1.Text.ToLower();
-                    fileName = fileName.Replace(" ", "-");
-                    fileName = fileName.Replace(":", "");
-                    fileName = fileName.Replace(";", "");
-                    fileName = fileName.Replace(",", "");
-                    fileName = fileName.Replace("/", "");
-                    fileName = fileName.Replace("\'", "");
-                    fileName = fileName.Replace("\"", "");
-
-                    if (!File.Exists($"./piatier-cache/{fileName}.json"))
-                    {
-                        richTextBox3.AppendText(LogUtils.FormatLog("Saving cache for result \"" + guna2TextBox1.Text + "\""));
-                        File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
-                        guna2TextBox1.Enabled = true;
-                    }
-                    else
-                    {
-                        if (guna2ToggleSwitch2.Checked) 
-                        {
-                            richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \"" + guna2TextBox1.Text + "\""));
-                            File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
-                            guna2TextBox1.Enabled = true;
-                        }
-                        else
-                        {
-                            var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
-                            if (result == DialogResult.Yes)
-                            {
-                                richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \""+guna2TextBox1.Text+"\""));
-                                File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
-                                guna2TextBox1.Enabled = true;
-                            }
-                        }
-                    }
-                   
-                }));
-            }).Start();
-            #endregion
-
-            Torrents.Clear();
-            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-            guna2MessageDialog1.Show("Loading torrents... Please be patient..", "Information");
-            richTextBox3.AppendText(LogUtils.FormatLog("Loading results for \"" + guna2TextBox1.Text+"\""));
-        }
+        private static bool isGettingMagnet = false;
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrEmpty(guna2TextBox1.Text))
             {
                 guna2MessageDialog1.Icon = MessageDialogIcon.Error;
@@ -152,14 +62,7 @@ namespace Piatier
                 Directory.CreateDirectory("./piatier-cache");
 
 
-            var fileName = guna2TextBox1.Text.ToLower();
-            fileName = fileName.Replace(" ", "-");
-            fileName = fileName.Replace(":", "");
-            fileName = fileName.Replace(";", "");
-            fileName = fileName.Replace(",", "");
-            fileName = fileName.Replace("/", "");
-            fileName = fileName.Replace("\'", "");
-            fileName = fileName.Replace("\"", "");
+            var fileName = CleanName(guna2TextBox1.Text.ToLower());
 
             if (File.Exists($"./piatier-cache/{fileName}.json") && !guna2ToggleSwitch1.Checked)
             {
@@ -169,9 +72,7 @@ namespace Piatier
                     richTextBox3.AppendText(LogUtils.FormatLog("Loading old cache for \""+guna2TextBox1.Text+"\""));
                     try
                     {
-                        Torrents = JsonConvert.DeserializeObject<List<Torrent>>(File.ReadAllText($"./piatier-cache/{fileName}.json"));
-                        if(guna2ToggleSwitch8.Checked)
-                            Torrents = Torrents.Where(t => int.Parse(t.seeders) >= guna2NumericUpDown1.Value).ToList();
+                        Torrents = CacheUtils.GetCache(fileName, 0);
 
                         Sort();
                         guna2Button1.Enabled = true;
@@ -200,6 +101,8 @@ namespace Piatier
 
         private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (isGettingMagnet) return;
+            isGettingMagnet = true;
             try
             {
                 int val = (int)Column1.DataGridView.Rows[e.RowIndex].Cells[0].Value;
@@ -213,14 +116,94 @@ namespace Piatier
                 else
                 {
                     var j = Torrents.Where(x => x.id == val).First();
-                    Clipboard.SetText(j.link);
+
+                    if(j.source == "PirateBay")
+                    {
+                        Clipboard.SetText(j.link);
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                        guna2MessageDialog1.Show("Copied link to clipboard.", "Information");
+                        isGettingMagnet = false;
+                        return;
+                    }
+
                     guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                    guna2MessageDialog1.Show("Copied torrent to clipboard.", "Information");
+                    guna2MessageDialog1.Show("Attempting to grab magnet", "Information");
+
+                    new Thread(() =>
+                    {
+                        var foundMagnet = false;
+                        var magnet = "";
+                        var h = HTTPUtils.Get(j.link);
+                        if (h != null)
+                        {
+                            if (h.IsOK)
+                            {
+                                var data = h.ToString().Split('\n');
+
+                                switch (j.source)
+                                {
+                                    case "1337x":
+                                        for (int line = 0; line < data.Length; line++)
+                                        {
+                                                if (data[line].Contains("href=\"magnet"))
+                                                {
+                                                    if (!foundMagnet)
+                                                    {
+                                                        magnet = Regex.Match(data[line], "magnet:[?=a-zA-Z\\-:0-9&;%.+]+").ToString();
+                                                        foundMagnet = true;
+                                                    }
+                                                }
+                                        }
+                                        break;
+                                    case "Kickass":
+                                        for (int line = 0; line < data.Length; line++)
+                                        {
+                                            if (data[line].Contains("siteButton giantButton"))
+                                            {
+                                                if (!foundMagnet)
+                                                {
+                                                    magnet = Regex.Match(data[line], "magnet:[?=a-zA-Z\\-:0-9&;%.+]+").ToString();
+                                                    foundMagnet = true;
+                                                }
+                                            }
+                                        }
+                                        break;
+                                }
+
+                                this.Invoke(new Action(() =>
+                                {
+                                    // Fail over if magnet is empty
+                                    if (string.IsNullOrEmpty(magnet))
+                                    {
+                                        Clipboard.SetText(j.link);
+                                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                                        guna2MessageDialog1.Show("Copied link to clipboard.", "Information");
+                                        return;
+                                    }
+
+                                    Clipboard.SetText(magnet);
+                                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                                    guna2MessageDialog1.Show("Copied magnet to clipboard.", "Information");
+                                }));
+                                isGettingMagnet = false;
+                            }
+                        }
+                        else
+                        {
+                            // Fail over if request is null.
+                            this.Invoke(new Action(() =>
+                            {
+                                Clipboard.SetText(j.link);
+                                guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                                guna2MessageDialog1.Show("Copied link to clipboard.", "Information");
+                            }));
+                        }
+
+                    }).Start();
                 }
             }
             catch
             {
-
                 if (string.IsNullOrEmpty(e.RowIndex.ToString()))
                 {
                     guna2MessageDialog1.Icon = MessageDialogIcon.Error;
@@ -229,41 +212,10 @@ namespace Piatier
             }
         }
 
-        private void Sort()
-        {
-            List<string> g = new List<string>();
-            Column1.DataGridView.Rows.Clear();
-            Torrents.Sort((c, y) => int.Parse(c.seeders) - int.Parse(y.seeders));
-            Torrents.Reverse();
-            if (guna2ToggleSwitch8.Checked)
-                Torrents = Torrents.Where(t => int.Parse(t.seeders) >= guna2NumericUpDown1.Value).ToList();
-            foreach (Torrent tor in Torrents)
-            {
-                var data = $"{tor.category}|{tor.name}|{tor.size}|{tor.seeders}";
-               
-                if (!g.Contains(data))
-                {
-                    Column1.DataGridView.Rows.Add(tor.id, tor.source, tor.category, tor.name, tor.size, int.Parse(tor.seeders));
-                    g.Add(data);
-                }
-            }
-            g.Clear();
-        }
-            
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-            Sort();
-        }
-
         private void guna2TextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
                 guna2Button1_Click(sender, e);
-        }
-
-        private void guna2TextBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
         }
 
         private void guna2Button3_Click(object sender, EventArgs e)
@@ -273,46 +225,7 @@ namespace Piatier
             guna2Button3.Enabled = false;
         }
 
-
-
-        private void GetTrackers()
-        {
-            Trackers.Clear();
-            richTextBox1.Text = "";
-            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-            guna2MessageDialog1.Show("Scraping for Trackers... Please wait.", "Information");
-            richTextBox3.AppendText(LogUtils.FormatLog("Scraping for Trackers... Please wait."));
-            var trackers = richTextBox2.Lines; // Dumb fix haha
-            new Thread(() =>
-            {
-                var t = Sources.Trackers.GetTrackers(trackers);
-
-                foreach (var track in t)
-                    Trackers.Add(track);
-
-                Trackers = Trackers.Distinct().ToList();
-
-                this.Invoke(new Action(() =>
-                {
-                  
-                    if (Trackers.Count > 0)
-                    {
-                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                        guna2MessageDialog1.Show("Found " + Trackers.Count() + " trackers.", "Information");
-                        richTextBox1.Lines = Trackers.ToArray();
-                        richTextBox3.AppendText(LogUtils.FormatLog("Found " + Trackers.Count() + " trackers."));
-                    }
-                    else
-                    {
-                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
-                        guna2MessageDialog1.Show("Sadly, I didnt find any trackers.", "Error");
-                        richTextBox3.AppendText(LogUtils.FormatLog("Sadly, I didnt find any trackers."));
-                    }
-                    guna2Button2.Enabled = true;
-                }));
-            }).Start();
-
-        }
+        
 
         private void guna2Button2_Click_1(object sender, EventArgs e)
         {
@@ -353,9 +266,8 @@ namespace Piatier
                     {
                         try
                         {
-                            var h = File.ReadAllText(file);
-                            List<Torrent> j = JsonConvert.DeserializeObject<List<Torrent>>(h);
-                            File.WriteAllText($"{file}", JsonConvert.SerializeObject(j, Newtonsoft.Json.Formatting.Indented));
+                            var g = CacheUtils.GetCache(file, 0);
+                            File.WriteAllText($"{file}", JsonConvert.SerializeObject(g, Newtonsoft.Json.Formatting.Indented));
                         }
                         catch
                         {
@@ -387,6 +299,10 @@ namespace Piatier
                 guna2MessageDialog1.Show("Seeders cannot be zero. Resetting to 1", "Information");
                 guna2NumericUpDown1.Value = 1;
             }
+            else
+            {
+                Sort();
+            }
         }
 
         private void guna2HtmlLabel8_Click(object sender, EventArgs e)
@@ -408,5 +324,191 @@ namespace Piatier
         {
             Process.Start("https://www.henrypp.org/product/simplewall");
         }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            Sort();
+        }
+
+        private void guna2ToggleSwitch8_CheckedChanged(object sender, EventArgs e)
+        {
+            Sort();
+        }
+
+        private void guna2ToggleSwitch4_CheckedChanged(object sender, EventArgs e)
+        {
+            Sort();
+        }
+
+        private void guna2ToggleSwitch3_CheckedChanged(object sender, EventArgs e)
+        {
+            Sort();
+        }
+
+        private void guna2ToggleSwitch5_CheckedChanged(object sender, EventArgs e)
+        {
+            Sort();
+        }
+
+        private string CleanName(string text)
+        {
+            var fileName = text.ToLower();
+            fileName = fileName.Replace(" ", "-");
+            fileName = fileName.Replace(":", "");
+            fileName = fileName.Replace(";", "");
+            fileName = fileName.Replace(",", "");
+            fileName = fileName.Replace("/", "");
+            fileName = fileName.Replace("\'", "");
+            fileName = fileName.Replace("\"", "");
+            return fileName;
+        }
+
+        private void DoSearch()
+        {
+            Torrents.Clear();
+            Column1.DataGridView.Rows.Clear();
+            guna2Button1.Enabled = false;
+            guna2Button3.Enabled = false;
+
+            #region funny search
+
+            new Thread(() =>
+            {
+                if (guna2ToggleSwitch3.Checked)
+                {
+                    var tor = Sources.PirateBay.GetTorrents(guna2TextBox1.Text);
+                    if (tor.Count() < 0) return;
+                    foreach (var t in tor)
+                        Torrents.Add(t);
+                }
+                if (guna2ToggleSwitch4.Checked)
+                {
+                    var tor = Sources._1337x.GetTorrents(guna2TextBox1.Text);
+                    if (tor.Count() < 0) return;
+                    foreach (var t in tor)
+                        Torrents.Add(t);
+                }
+                if (guna2ToggleSwitch5.Checked)
+                {
+                    var tor = Sources.Kickass.GetTorrents(guna2TextBox1.Text);
+                    if (tor.Count() < 0) return;
+                    foreach (var t in tor)
+                        Torrents.Add(t);
+                }
+
+                this.Invoke(new Action(() =>
+                {
+                    Sort();
+                    guna2Button1.Enabled = true;
+                    guna2Button3.Enabled = true;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                    guna2MessageDialog1.Show("Done loading ;)", "Information");
+                    richTextBox3.AppendText(LogUtils.FormatLog("Done loading results for \"" + guna2TextBox1.Text + "\""));
+
+                    if (!Directory.Exists("./piatier-cache"))
+                        Directory.CreateDirectory("./piatier-cache");
+
+                    var fileName = CleanName(guna2TextBox1.Text.ToLower());
+
+                    if (!File.Exists($"./piatier-cache/{fileName}.json"))
+                    {
+                        richTextBox3.AppendText(LogUtils.FormatLog("Saving cache for result \"" + guna2TextBox1.Text + "\""));
+                        File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
+                        guna2TextBox1.Enabled = true;
+                    }
+                    else
+                    {
+                        if (guna2ToggleSwitch2.Checked)
+                        {
+                            richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \"" + guna2TextBox1.Text + "\""));
+                            File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
+                            guna2TextBox1.Enabled = true;
+                        }
+                        else
+                        {
+                            var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
+                            if (result == DialogResult.Yes)
+                            {
+                                richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \"" + guna2TextBox1.Text + "\""));
+                                File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
+                                guna2TextBox1.Enabled = true;
+                            }
+                        }
+                    }
+
+                }));
+            }).Start();
+            #endregion
+
+            Torrents.Clear();
+            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+            guna2MessageDialog1.Show("Loading torrents... Please be patient..", "Information");
+            richTextBox3.AppendText(LogUtils.FormatLog("Loading results for \"" + guna2TextBox1.Text + "\""));
+        }
+
+        private void GetTrackers()
+        {
+            Trackers.Clear();
+            richTextBox1.Text = "";
+            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+            guna2MessageDialog1.Show("Scraping for Trackers... Please wait.", "Information");
+            richTextBox3.AppendText(LogUtils.FormatLog("Scraping for Trackers... Please wait."));
+            var trackers = richTextBox2.Lines; // Dumb fix haha
+            new Thread(() =>
+            {
+                var t = Sources.Trackers.GetTrackers(trackers);
+
+                foreach (var track in t)
+                    Trackers.Add(track);
+
+                Trackers = Trackers.Distinct().ToList();
+
+                this.Invoke(new Action(() =>
+                {
+
+                    if (Trackers.Count > 0)
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                        guna2MessageDialog1.Show("Found " + Trackers.Count() + " trackers.", "Information");
+                        richTextBox1.Lines = Trackers.ToArray();
+                        richTextBox3.AppendText(LogUtils.FormatLog("Found " + Trackers.Count() + " trackers."));
+                    }
+                    else
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                        guna2MessageDialog1.Show("Sadly, I didnt find any trackers.", "Error");
+                        richTextBox3.AppendText(LogUtils.FormatLog("Sadly, I didnt find any trackers."));
+                    }
+                    guna2Button2.Enabled = true;
+                }));
+            }).Start();
+
+        }
+
+        private void Sort()
+        {
+            Column1.DataGridView.Rows.Clear();
+            Torrents.Sort((c, y) => int.Parse(c.seeders) - int.Parse(y.seeders));
+            Torrents.Reverse();
+            Torrents = Torrents.Distinct().ToList();
+
+            var temp = Torrents;
+
+            if (guna2ToggleSwitch8.Checked)
+                temp = temp.Where(t => int.Parse(t.seeders) >= guna2NumericUpDown1.Value).ToList();
+
+            if (!guna2ToggleSwitch3.Checked)
+                temp = temp.Where(e => e.source != "PirateBay").ToList();
+
+            if (!guna2ToggleSwitch4.Checked)
+                temp = temp.Where(e => e.source != "1337x").ToList();
+
+            if (!guna2ToggleSwitch5.Checked)
+                temp = temp.Where(e => e.source != "Kickass").ToList();
+
+            foreach (Torrent tor in temp)
+                Column1.DataGridView.Rows.Add(tor.id, tor.source, tor.category, tor.name, tor.size, int.Parse(tor.seeders));
+        }
+
     }
 }

@@ -211,6 +211,7 @@
     <Compile Include="Sources\Kickass.cs" />
     <Compile Include="Sources\PirateBay.cs" />
     <Compile Include="Sources\Trackers.cs" />
+    <Compile Include="Utils\CacheUtils.cs" />
     <Compile Include="Utils\HTTPUtils.cs" />
     <Compile Include="Utils\LogUtils.cs" />
     <Compile Include="Utils\MiscUtils.cs" />
