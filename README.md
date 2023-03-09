@@ -15,7 +15,7 @@ Piatier is a Torrent search engine for desktop. Simplistic and easy to use. Just
 
 ## Credits
 null or [NullifiedCode](https://github.com/NullifiedCode/)<br>
-[Bunifu Framework](https://bunifuframework.com/)
+[Guna Framework](https://gunaui.com/)
 
 ## Reminder
 If you do not want to have legal issues regarding your ISP and you torrenting. Please use a VPN & Proxy. I suggest [MullvadVPN](https://mullvad.net/en/) its the cheapest and has proxy support. 
