@@ -13,5 +13,6 @@ namespace Piatier.Formatting
         public string seeders { get; set; }
         public string category { get; set; }
         public string size { get; set; }
+        public string username { get; set; }
     }
 }

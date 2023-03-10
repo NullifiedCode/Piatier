@@ -47,7 +47,6 @@ namespace Piatier
                 return;
             }
 
-
             if(!guna2ToggleSwitch5.Checked && !guna2ToggleSwitch4.Checked && !guna2ToggleSwitch3.Checked)
             {
                 guna2MessageDialog1.Icon = MessageDialogIcon.Error;
@@ -60,7 +59,6 @@ namespace Piatier
 
             if (!Directory.Exists("./piatier-cache"))
                 Directory.CreateDirectory("./piatier-cache");
-
 
             var fileName = CleanName(guna2TextBox1.Text.ToLower());
 
@@ -79,6 +77,13 @@ namespace Piatier
                         guna2Button3.Enabled = true;
                         guna2TextBox1.Enabled = true;
                         guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+
+                        if (Column1.DataGridView.Rows.Count < 1)
+                        {
+                            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                            guna2MessageDialog1.Show("If you cannot see any torrents. Please go and disable or lower your min seeders.", "Information");
+                        }
+
                         guna2MessageDialog1.Show("Done loading ;)", "Information");
                         richTextBox3.AppendText(LogUtils.FormatLog("Done loading cache for \"" + guna2TextBox1.Text + "\""));
                     }
@@ -176,8 +181,8 @@ namespace Piatier
                                     if (string.IsNullOrEmpty(magnet))
                                     {
                                         Clipboard.SetText(j.link);
-                                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                                        guna2MessageDialog1.Show("Copied link to clipboard.", "Information");
+                                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                                        guna2MessageDialog1.Show("Failed finding magnet, Copied link to clipboard instead", "Error");
                                         return;
                                     }
 
@@ -197,6 +202,7 @@ namespace Piatier
                                 guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                                 guna2MessageDialog1.Show("Copied link to clipboard.", "Information");
                             }));
+                            isGettingMagnet = false;
                         }
 
                     }).Start();
@@ -229,6 +235,8 @@ namespace Piatier
 
         private void guna2Button2_Click_1(object sender, EventArgs e)
         {
+
+           
             guna2Button2.Enabled = false;
             GetTrackers();
         }
@@ -398,44 +406,63 @@ namespace Piatier
 
                 this.Invoke(new Action(() =>
                 {
-                    Sort();
-                    guna2Button1.Enabled = true;
-                    guna2Button3.Enabled = true;
-                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-                    guna2MessageDialog1.Show("Done loading ;)", "Information");
-                    richTextBox3.AppendText(LogUtils.FormatLog("Done loading results for \"" + guna2TextBox1.Text + "\""));
-
-                    if (!Directory.Exists("./piatier-cache"))
-                        Directory.CreateDirectory("./piatier-cache");
-
-                    var fileName = CleanName(guna2TextBox1.Text.ToLower());
-
-                    if (!File.Exists($"./piatier-cache/{fileName}.json"))
+                    
+                    if (Torrents.Count() > 0)
                     {
-                        richTextBox3.AppendText(LogUtils.FormatLog("Saving cache for result \"" + guna2TextBox1.Text + "\""));
-                        File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
-                        guna2TextBox1.Enabled = true;
-                    }
-                    else
-                    {
-                        if (guna2ToggleSwitch2.Checked)
+                        Sort();
+                        guna2Button1.Enabled = true;
+                        guna2Button3.Enabled = true;
+
+                        if (!Directory.Exists("./piatier-cache"))
+                            Directory.CreateDirectory("./piatier-cache");
+
+                        var fileName = CleanName(guna2TextBox1.Text.ToLower());
+
+
+                        if (!File.Exists($"./piatier-cache/{fileName}.json"))
                         {
-                            richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \"" + guna2TextBox1.Text + "\""));
+                            richTextBox3.AppendText(LogUtils.FormatLog("Saving cache for result \"" + guna2TextBox1.Text + "\""));
                             File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
                             guna2TextBox1.Enabled = true;
                         }
                         else
                         {
-                            var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
-                            if (result == DialogResult.Yes)
+                            if (guna2ToggleSwitch2.Checked)
                             {
                                 richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \"" + guna2TextBox1.Text + "\""));
                                 File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
                                 guna2TextBox1.Enabled = true;
                             }
+                            else
+                            {
+                                var result = guna2MessageDialog2.Show("Old cache found. Do you wanna update the cache?", "Information");
+                                if (result == DialogResult.Yes)
+                                {
+                                    richTextBox3.AppendText(LogUtils.FormatLog("Updating cache for result \"" + guna2TextBox1.Text + "\""));
+                                    File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(Torrents, Newtonsoft.Json.Formatting.Indented));
+                                    guna2TextBox1.Enabled = true;
+                                }
+                            }
                         }
-                    }
 
+                        if(Column1.DataGridView.Rows.Count < 1)
+                        {
+                            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                            guna2MessageDialog1.Show("If you cannot see any torrents. Please go and disable or lower your min seeders.", "Information");
+                        }
+
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                        guna2MessageDialog1.Show("Done loading ;)", "Information");
+                        richTextBox3.AppendText(LogUtils.FormatLog("Done loading results for \"" + guna2TextBox1.Text + "\""));
+                    }
+                    else
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                        guna2MessageDialog1.Show("No torrrents found.", "Error");
+                        guna2TextBox1.Enabled = true;
+                        guna2Button1.Enabled = true;
+                        guna2Button3.Enabled = true;
+                    }
                 }));
             }).Start();
             #endregion
@@ -450,13 +477,24 @@ namespace Piatier
         {
             Trackers.Clear();
             richTextBox1.Text = "";
+            List<string> trackers = richTextBox2.Lines.ToList(); // Dumb fix haha
+            if (Torrents.Count() > 0)
+            {
+                guna2MessageDialog2.Icon = MessageDialogIcon.Question;
+                var result = guna2MessageDialog2.Show("Do you wanna scrape all trackers from the torrents aswell? (UNSTABLE & WIP)", "Question");
+                if (result == DialogResult.Yes)
+                {
+                    foreach (var t in Torrents)
+                        trackers.Add(t.link);
+                }
+            }
+
             guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-            guna2MessageDialog1.Show("Scraping for Trackers... Please wait.", "Information");
+            guna2MessageDialog1.Show($"Scraping for Trackers... Please wait. ({trackers.Count()})", "Information");
             richTextBox3.AppendText(LogUtils.FormatLog("Scraping for Trackers... Please wait."));
-            var trackers = richTextBox2.Lines; // Dumb fix haha
             new Thread(() =>
             {
-                var t = Sources.Trackers.GetTrackers(trackers);
+                var t = Sources.Trackers.GetTrackers(trackers.ToArray());
 
                 foreach (var track in t)
                     Trackers.Add(track);
@@ -507,8 +545,18 @@ namespace Piatier
                 temp = temp.Where(e => e.source != "Kickass").ToList();
 
             foreach (Torrent tor in temp)
-                Column1.DataGridView.Rows.Add(tor.id, tor.source, tor.category, tor.name, tor.size, int.Parse(tor.seeders));
+                Column1.DataGridView.Rows.Add(tor.id, tor.source, tor.category, " "+tor.name, tor.uploader, tor.size, int.Parse(tor.seeders));
         }
 
+        private void guna2Button6_Click(object sender, EventArgs e)
+        {
+            if(Directory.Exists(Directory.GetCurrentDirectory() + "\\piatier-cache"))
+                Process.Start("explorer.exe", Directory.GetCurrentDirectory()+"\\piatier-cache");
+            else
+            {
+                guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                guna2MessageDialog1.Show("Could not find cache directory.", "Error");
+            }
+        }
     }
 }

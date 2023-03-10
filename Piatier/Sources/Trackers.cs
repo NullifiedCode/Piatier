@@ -24,7 +24,7 @@ namespace Piatier.Sources
                         {
                             var data = r.ToString();
 
-                            MatchCollection collection = Regex.Matches(data, @"(udp|http|https):\/\/([a-zA-Z]+\.|)[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+.\d+\/announce");
+                            MatchCollection collection = Regex.Matches(data, @"(udp|http|https):\/\/([a-zA-Z0-9-]+\.|)[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+.\d+(\/announce|)");
 
                             foreach (var match in collection)
                             {

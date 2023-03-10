@@ -33,6 +33,7 @@ namespace Piatier.Sources
                             var size = xx[i + 4].Replace("<td class=\"coll-4 size mob-uploader\">", "").Replace("</td>", "");
                             var link = Regex.Replace(line, "<i class=\"flaticon-[a-zA-Z0-9]+\"><\\/i><\\/a><a href=\"", "");
                             link = Regex.Match(line, "\\/torrent\\/\\d+\\/[a-zA-Z0-9\\-_\\s]+\\/\"").Value.Replace("/\"", "");
+                            var uploader = Regex.Replace(xx[i + 5], "<td class=\\\"coll-5 uploader\"><a href=\"\\/user\\/[a-zA-Z0-9_\\-\\+.]+\\/\">", "").Replace("</a>", "");
                             //link = Regex.Replace(link, "\\/\\\">[a-zA-Z0-9-_\\\\-\\\\s.\\s+]+", "").Replace("</a></td>", "");
 
 
@@ -47,6 +48,7 @@ namespace Piatier.Sources
                             tor.category = category;
                             tor.size = size;
                             tor.name = line;
+                            tor.uploader = uploader;
                             tor.source = "1337x";
                             if (!torrents.Contains(tor))
                                 torrents.Add(tor);

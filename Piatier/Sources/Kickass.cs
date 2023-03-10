@@ -56,6 +56,11 @@ namespace Piatier.Sources
                                     tor.size = Regex.Match(lines[k + 22 + 1], "\\d+(.\\d+|)\\s(GB|MB|KB|B)").ToString();
                             }
 
+                            if (lines[k + 24].Contains("<td class=\"center\""))
+                            {
+                                tor.uploader = lines[k + 25].Replace("<td class=\"center\"","").Replace(" </td>","").ToString();
+                            }
+
                             if (lines[k + 28].Contains("green center"))
                             {
                                 tor.seeders = Regex.Match(lines[k + 28 + 1], "\\d+").ToString();

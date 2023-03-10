@@ -126,6 +126,7 @@ namespace Piatier.Sources
                         tor.category = category;
                         tor.size = MiscUtils.BytesToString(long.Parse(z.size));
                         tor.name = z.name;
+                        tor.uploader = z.username;
                         tor.source = "PirateBay";
                         if (!torrents.Contains(tor))
                             torrents.Add(tor);
