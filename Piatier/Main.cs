@@ -183,14 +183,15 @@ namespace Piatier
                                         Clipboard.SetText(j.link);
                                         guna2MessageDialog1.Icon = MessageDialogIcon.Error;
                                         guna2MessageDialog1.Show("Failed finding magnet, Copied link to clipboard instead", "Error");
+                                        isGettingMagnet = false;
                                         return;
                                     }
 
                                     Clipboard.SetText(magnet);
                                     guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                                     guna2MessageDialog1.Show("Copied magnet to clipboard.", "Information");
+                                    isGettingMagnet = false;
                                 }));
-                                isGettingMagnet = false;
                             }
                         }
                         else
@@ -201,8 +202,8 @@ namespace Piatier
                                 Clipboard.SetText(j.link);
                                 guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                                 guna2MessageDialog1.Show("Copied link to clipboard.", "Information");
+                                isGettingMagnet = false;
                             }));
-                            isGettingMagnet = false;
                         }
 
                     }).Start();
@@ -367,7 +368,9 @@ namespace Piatier
             fileName = fileName.Replace(",", "");
             fileName = fileName.Replace("/", "");
             fileName = fileName.Replace("\'", "");
+            fileName = fileName.Replace("\\", "");
             fileName = fileName.Replace("\"", "");
+            fileName = fileName.Replace("\0", "");
             return fileName;
         }
 
@@ -557,6 +560,26 @@ namespace Piatier
                 guna2MessageDialog1.Icon = MessageDialogIcon.Error;
                 guna2MessageDialog1.Show("Could not find cache directory.", "Error");
             }
+        }
+
+        private void guna2Button7_Click(object sender, EventArgs e)
+        {
+            guna2Button7.Enabled = false;
+            new Thread(() =>
+            {
+                var ip = HTTPUtils.GetIP();
+                this.Invoke(new Action(() =>
+                {
+                    guna2Button7.Enabled = true;
+                    guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                    if (string.IsNullOrEmpty(ip))
+                    {
+                        guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                        guna2MessageDialog1.Show("Unable to find ip. Something is wrong.", "Error");
+                    }
+                    guna2MessageDialog1.Show("IP: "+ip, "Information");
+                }));
+            }).Start();
         }
     }
 }
