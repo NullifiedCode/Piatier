@@ -24,9 +24,15 @@ namespace Piatier.Utils
                 httpRequest.KeepAliveTimeout = 30000;
                 httpRequest.ReadWriteTimeout = 30000;
                 httpRequest.ReconnectLimit = 5;
-                httpRequest.UserAgentRandomize();
-                httpRequest.UserAgent = Http.RandomUserAgent();
+                try
+                {
+                    httpRequest.UserAgentRandomize();
+                    httpRequest.UserAgent = Http.RandomUserAgent();
+                }
+                catch
+                {
 
+                }
                 // Mullvad OpenVPN Proxy
                 httpRequest.Proxy = Socks5ProxyClient.Parse("10.8.0.1:1080");
 
@@ -49,8 +55,15 @@ namespace Piatier.Utils
                 httpRequest.KeepAliveTimeout = 30000;
                 httpRequest.ReadWriteTimeout = 30000;
                 httpRequest.ReconnectLimit = 5;
-                httpRequest.UserAgentRandomize();
-                httpRequest.UserAgent = Http.RandomUserAgent();
+                try
+                {
+                    httpRequest.UserAgentRandomize();
+                    httpRequest.UserAgent = Http.RandomUserAgent();
+                }
+                catch
+                {
+
+                }
 
                 // Mullvad Wireguard Proxy
                 httpRequest.Proxy = Socks5ProxyClient.Parse("10.64.0.1:1080");
@@ -88,8 +101,14 @@ namespace Piatier.Utils
                     httpRequest.KeepAliveTimeout = 30000;
                     httpRequest.ReadWriteTimeout = 30000;
                     httpRequest.ReconnectLimit = 5;
-                    httpRequest.UserAgentRandomize();
-                    httpRequest.UserAgent = Http.RandomUserAgent();
+                    try {
+                        httpRequest.UserAgentRandomize();
+                        httpRequest.UserAgent = Http.RandomUserAgent();
+                    }
+                    catch
+                    {
+
+                    }
 
                     response = httpRequest.Get(url);
                     return response;

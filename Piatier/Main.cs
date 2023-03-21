@@ -47,7 +47,7 @@ namespace Piatier
                 return;
             }
 
-            if(!guna2ToggleSwitch5.Checked && !guna2ToggleSwitch4.Checked && !guna2ToggleSwitch3.Checked)
+            if(!guna2ToggleSwitch5.Checked && !guna2ToggleSwitch4.Checked && !guna2ToggleSwitch3.Checked && !guna2ToggleSwitch6.Checked)
             {
                 guna2MessageDialog1.Icon = MessageDialogIcon.Error;
                 guna2MessageDialog1.Show("I dropped the damn website.... uh oh...", "Error");
@@ -173,6 +173,13 @@ namespace Piatier
                                             }
                                         }
                                         break;
+                                    case "YTS":
+                                        if (!foundMagnet)
+                                        {
+                                            magnet = j.link;
+                                            foundMagnet = true;
+                                        }
+                                        break;
                                 }
 
                                 this.Invoke(new Action(() =>
@@ -248,12 +255,6 @@ namespace Piatier
                 guna2Button3.Visible = true;
             else
                 guna2Button3.Visible = false;
-
-            if (guna2TabControl1.SelectedTab.Name == "tabPage3")
-                guna2Button4.Visible = true;
-            else
-                guna2Button4.Visible = false;
-
         }
 
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
@@ -261,38 +262,6 @@ namespace Piatier
             Process.Start("https://github.com/NullifiedCode/Piatier");
             guna2MessageDialog1.Icon = MessageDialogIcon.Warning;
             guna2MessageDialog1.Show("You found the easter-egg :) <3", "hi");
-        }
-
-        private void guna2Button4_Click(object sender, EventArgs e)
-        {
-            richTextBox3.AppendText(LogUtils.FormatLog("Attempting to parse old cache files to new format."));
-            guna2Button4.Enabled = false;
-            new Thread(() =>
-            {
-                if (Directory.Exists("./piatier-cache"))
-                {
-                    foreach (var file in Directory.GetFiles("./piatier-cache"))
-                    {
-                        try
-                        {
-                            var g = CacheUtils.GetCache(file, 0);
-                            File.WriteAllText($"{file}", JsonConvert.SerializeObject(g, Newtonsoft.Json.Formatting.Indented));
-                        }
-                        catch
-                        {
-                            LogUtils.FormatLog("Failed formatting file " + file);
-                        }
-                    }
-                }
-
-                Thread.Sleep(2000);
-                this.Invoke(new Action(() =>
-                {
-                    guna2Button4.Enabled = true;
-                }));
-            }).Start();
-            guna2MessageDialog1.Icon = MessageDialogIcon.Information;
-            guna2MessageDialog1.Show("Attempting to parse old cache files to new format.", "Information");
         }
 
         private void guna2Button5_Click(object sender, EventArgs e)
@@ -385,27 +354,26 @@ namespace Piatier
 
             new Thread(() =>
             {
-                if (guna2ToggleSwitch3.Checked)
-                {
-                    var tor = Sources.PirateBay.GetTorrents(guna2TextBox1.Text);
-                    if (tor.Count() < 0) return;
-                    foreach (var t in tor)
-                        Torrents.Add(t);
-                }
-                if (guna2ToggleSwitch4.Checked)
-                {
-                    var tor = Sources._1337x.GetTorrents(guna2TextBox1.Text);
-                    if (tor.Count() < 0) return;
-                    foreach (var t in tor)
-                        Torrents.Add(t);
-                }
-                if (guna2ToggleSwitch5.Checked)
-                {
-                    var tor = Sources.Kickass.GetTorrents(guna2TextBox1.Text);
-                    if (tor.Count() < 0) return;
-                    foreach (var t in tor)
-                        Torrents.Add(t);
-                }
+                var tor = new List<Torrent>();
+                tor = Sources.PirateBay.GetTorrents(guna2TextBox1.Text);
+                if (tor.Count() < 0) return;
+                foreach (var t in tor)
+                    Torrents.Add(t);
+
+                tor = Sources._1337x.GetTorrents(guna2TextBox1.Text);
+                if (tor.Count() < 0) return;
+                foreach (var t in tor)
+                    Torrents.Add(t);
+
+                tor = Sources.Kickass.GetTorrents(guna2TextBox1.Text);
+                if (tor.Count() < 0) return;
+                foreach (var t in tor)
+                    Torrents.Add(t);
+
+                tor = Sources.YTS.GetTorrents(guna2TextBox1.Text);
+                if (tor.Count() < 0) return;
+                foreach (var t in tor)
+                    Torrents.Add(t);
 
                 this.Invoke(new Action(() =>
                 {
@@ -546,6 +514,9 @@ namespace Piatier
 
             if (!guna2ToggleSwitch5.Checked)
                 temp = temp.Where(e => e.source != "Kickass").ToList();
+
+            if (!guna2ToggleSwitch6.Checked)
+                temp = temp.Where(e => e.source != "YTS.MX").ToList();
 
             foreach (Torrent tor in temp)
                 Column1.DataGridView.Rows.Add(tor.id, tor.source, tor.category, " "+tor.name, tor.uploader, tor.size, int.Parse(tor.seeders));
