@@ -77,6 +77,7 @@ namespace Piatier
                         guna2Button1.Enabled = true;
                         guna2Button3.Enabled = true;
                         guna2TextBox1.Enabled = true;
+                        guna2TabControl1.Enabled = true;
                         guna2MessageDialog1.Icon = MessageDialogIcon.Information;
 
                         if (Column1.DataGridView.Rows.Count < 1)
@@ -94,6 +95,7 @@ namespace Piatier
                         guna2MessageDialog1.Show("Cannot load cache for current search result. ", "Error");
                         richTextBox3.AppendText(LogUtils.FormatLog("Cannot load cache for \""+guna2TextBox1.Text+"\""));
                         guna2TextBox1.Enabled = true;
+                        guna2TabControl1.Enabled = true;
                     }
                 }
                 else
@@ -329,6 +331,10 @@ namespace Piatier
             Sort();
         }
 
+        private void guna2ToggleSwitch6_CheckedChanged(object sender, EventArgs e)
+        {
+            Sort();
+        }
         private string CleanName(string text)
         {
             var fileName = text.ToLower();
@@ -518,7 +524,7 @@ namespace Piatier
                 temp = temp.Where(e => e.source != "Kickass").ToList();
 
             if (!guna2ToggleSwitch6.Checked)
-                temp = temp.Where(e => e.source != "YTS.MX").ToList();
+                temp = temp.Where(e => e.source != "YTS").ToList();
 
             foreach (Torrent tor in temp)
                 Column1.DataGridView.Rows.Add(tor.id, tor.source, tor.category, " "+tor.name, tor.uploader, tor.size, int.Parse(tor.seeders));
