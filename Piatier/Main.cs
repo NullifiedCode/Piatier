@@ -39,6 +39,7 @@ namespace Piatier
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            guna2TabControl1.Enabled = false;
             if (string.IsNullOrEmpty(guna2TextBox1.Text))
             {
                 guna2MessageDialog1.Icon = MessageDialogIcon.Error;
@@ -421,7 +422,7 @@ namespace Piatier
                             guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                             guna2MessageDialog1.Show("If you cannot see any torrents. Please go and disable or lower your min seeders.", "Information");
                         }
-
+                        guna2TabControl1.Enabled = true;
                         guna2MessageDialog1.Icon = MessageDialogIcon.Information;
                         guna2MessageDialog1.Show("Done loading ;)", "Information");
                         richTextBox3.AppendText(LogUtils.FormatLog("Done loading results for \"" + guna2TextBox1.Text + "\""));
@@ -433,6 +434,7 @@ namespace Piatier
                         guna2TextBox1.Enabled = true;
                         guna2Button1.Enabled = true;
                         guna2Button3.Enabled = true;
+                        guna2TabControl1.Enabled = true;
                     }
                 }));
             }).Start();
