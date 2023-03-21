@@ -11,7 +11,8 @@ Piatier is a Torrent search engine for desktop. Simplistic and easy to use. Just
 ![image](https://user-images.githubusercontent.com/79751099/226511639-478afc1b-dd01-4a43-a5eb-6b19194f7ceb.png)
 
 ## Example
-![image](https://user-images.githubusercontent.com/79751099/226511718-cf0fdb7d-fcc7-48d3-b1a1-3af8738ac603.png)
+![grTFRbBdNY](https://user-images.githubusercontent.com/79751099/226513615-be7d19a8-99b1-4c09-a887-cdd4c6b1b0cf.gif)
+
 
 ## Credits
 null or [NullifiedCode](https://github.com/NullifiedCode/)<br>
