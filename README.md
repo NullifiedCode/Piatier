@@ -2,16 +2,16 @@
 Piatier is a Torrent search engine for desktop. Simplistic and easy to use. Just build and you're ready to go.
 
 ## Engine Tab
-![xghP3oyhYH](https://user-images.githubusercontent.com/79751099/223869509-1263d356-a004-4be2-abc0-b332732f24f2.png)
+![image](https://user-images.githubusercontent.com/79751099/226511600-ef9a87ff-1663-400f-86f6-f4bd737adabc.png)
 
 ## Trackers Tab
-![5AhrKUUdVd](https://user-images.githubusercontent.com/79751099/223869543-6d6ea570-abaf-44da-ab1f-daffdf799417.png)
+![image](https://user-images.githubusercontent.com/79751099/226511611-f26ea482-4d1a-4540-a27e-60c73cf78516.png)
 
 ## Settings & Logs
-![7mxseiwVlK](https://user-images.githubusercontent.com/79751099/223869641-1fee38d8-8ec0-4a86-b9a1-7f59ab9e676f.png)
+![image](https://user-images.githubusercontent.com/79751099/226511639-478afc1b-dd01-4a43-a5eb-6b19194f7ceb.png)
 
 ## Example
-![Dme9egAmbj](https://user-images.githubusercontent.com/79751099/223869892-7f0588a8-83e7-46c7-bdcc-f5459e72d68a.gif)
+![image](https://user-images.githubusercontent.com/79751099/226511718-cf0fdb7d-fcc7-48d3-b1a1-3af8738ac603.png)
 
 ## Credits
 null or [NullifiedCode](https://github.com/NullifiedCode/)<br>
