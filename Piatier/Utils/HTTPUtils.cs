@@ -129,15 +129,27 @@ namespace Piatier.Utils
         public static string GetIP()
         {
             HttpResponse response = null;
-            response = HTTPUtils.Get("https://ipv4.icanhazip.com/");
+            response = Get("https://ipinfo.io/ip");
             if (response != null) if (response.IsOK) return response.ToString();
-            response = HTTPUtils.Get("https://api.ipify.org/");
+            response = Get("https://ipv4.icanhazip.com/");
             if (response != null) if (response.IsOK) return response.ToString();
-            response = HTTPUtils.Get("https://api-ipv4.ip.sb/ip");
+            response = Get("https://api.ipify.org/");
             if (response != null) if (response.IsOK) return response.ToString();
-            response = HTTPUtils.Get("https://ipv4.getmyip.dev/");
+            response = Get("https://checkip.amazonaws.com/");
             if (response != null) if (response.IsOK) return response.ToString();
-            response = HTTPUtils.Get("https://api.my-ip.io/ip");
+            response = Get("http://whatismyip.akamai.com/");
+            if (response != null) if (response.IsOK) return response.ToString();
+            response = Get("https://ident.me/");
+            if (response != null) if (response.IsOK) return response.ToString();
+            response = Get("https://ipecho.net/plain");
+            if (response != null) if (response.IsOK) return response.ToString();
+            response = Get("https://wtfismyip.com/text");
+            if (response != null) if (response.IsOK) return response.ToString();
+            response = Get("https://api-ipv4.ip.sb/ip");
+            if (response != null) if (response.IsOK) return response.ToString();
+            response = Get("https://ipv4.getmyip.dev/");
+            if (response != null) if (response.IsOK) return response.ToString();
+            response = Get("https://api.my-ip.io/ip");
             if (response != null) if (response.IsOK) return response.ToString();
             return "";
         }
