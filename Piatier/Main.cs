@@ -12,11 +12,24 @@ using Piatier.Formatting;
 using System.IO;
 using static System.Windows.Forms.LinkLabel;
 using System.Diagnostics;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
+using System.Globalization;
+using LightHTTP;
+using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.Remoting.Contexts;
 
 namespace Piatier
 {
     public partial class Main : Form
     {
+        private static List<Torrent> Torrents = new List<Torrent>();
+        private static List<string> Trackers = new List<string>();
+        public static int indexCounter = 0;
+        private static bool isGettingMagnet = false;
+        LightHttpServer server = null;
+
         public Main()
         {
             InitializeComponent();
@@ -29,14 +42,153 @@ namespace Piatier
                 Directory.CreateDirectory("./piatier-cache");
                 richTextBox3.AppendText(LogUtils.FormatLog("Creating cache directory."));
             }
+
+            if (guna2ToggleSwitch7.Checked)
+            {
+                // 
+                // Work in progress. It does work but dont know if i should put it fully in.
+                // Auto complete list.
+                AutoCompleteStringCollection sourceName = new AutoCompleteStringCollection();
+                searchTerms = searchTerms.ToList().Distinct().ToArray();
+
+                foreach (string name in searchTerms)
+                    sourceName.Add(name);
+
+                guna2TextBox1.AutoCompleteCustomSource = sourceName;
+                guna2TextBox1.AutoCompleteMode = AutoCompleteMode.Append;
+                guna2TextBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            }
+            else
+            {
+                guna2TextBox1.AutoCompleteCustomSource = null;
+                guna2TextBox1.AutoCompleteMode = AutoCompleteMode.None;
+                guna2TextBox1.AutoCompleteSource = AutoCompleteSource.None;
+            }
+
+            /* HTTP Enable Default */
+            if (guna2ToggleSwitch9.Checked)
+            {
+                server = new LightHttpServer();
+                server.HandlesPath("/", async (context, cancellationToken) =>
+                {
+                    context.Response.Redirect("/torrents?searchTerm=deadpool 2");
+                });
+                server.HandlesPath("/torrents", async (context, cancellationToken) => {
+                    if (context.Request.RawUrl.Contains("?searchTerm") && context.Request.RawUrl.Split('?')[1].StartsWith("searchTerm"))
+                    {
+                        context.Response.ContentEncoding = Encoding.UTF8;
+                        context.Response.ContentType = "application/json";
+                        if (guna2ToggleSwitch10.Checked)
+                            if (isSearchingAlready)
+                            {
+                                HTTPStatus status = new HTTPStatus();
+                                status.StatusCode = 429;
+                                status.StatusMessage = "Searching for other results. Please try again in a minute.";
+                                status.Torrents = null;
+                                var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                                await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                                return;
+                            }
+
+                        if (string.IsNullOrEmpty(context.Request.QueryString[0]))
+                        {
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 500;
+                            status.StatusMessage = "Search arg is null or nothing. Please enter something.";
+                            status.Torrents = null;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            if (guna2ToggleSwitch10.Checked)
+                                isSearchingAlready = false;
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                            return;
+                        }
+
+                        isSearchingAlready = true;
+                        var tor = new List<Torrent>();
+                        var tor1 = new List<Torrent>();
+                        var fileName = CleanName(context.Request.QueryString[0]);
+                        if (File.Exists($"./piatier-cache/{fileName}.json"))
+                        {
+                            tor1 = CacheUtils.GetCache(fileName, 0);
+                        }
+                        else
+                        {
+                            tor = Sources.PirateBay.GetTorrents(context.Request.QueryString[0]);
+                            if (tor.Count() < 0) return;
+                            foreach (var t in tor)
+                                tor1.Add(t);
+
+                            tor = Sources._1337x.GetTorrents(context.Request.QueryString[0]);
+                            if (tor.Count() < 0) return;
+                            foreach (var t in tor)
+                                tor1.Add(t);
+
+                            tor = Sources.Kickass.GetTorrents(context.Request.QueryString[0]);
+                            if (tor.Count() < 0) return;
+                            foreach (var t in tor)
+                                tor1.Add(t);
+
+                            try
+                            {
+                                tor = Sources.YTS.GetTorrents(context.Request.QueryString[0]);
+                                if (tor.Count() < 0) return;
+                                foreach (var t in tor)
+                                    tor1.Add(t);
+                            }
+                            catch
+                            {
+                            }
+                        }
+
+
+                        if (tor1.Count > 0)
+                        {
+                            tor1.Sort((c, y) => int.Parse(c.seeders) - int.Parse(y.seeders));
+                            tor1.Reverse();
+                            tor1 = tor1.Distinct().ToList();
+
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 200;
+                            status.StatusMessage = "Found " + tor1.Count + " torrents.";
+                            status.Torrents = tor1;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            if (guna2ToggleSwitch10.Checked)
+                                isSearchingAlready = false;
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+
+                            if (!File.Exists($"./piatier-cache/{fileName}.json"))
+                            {
+                                this.Invoke(new Action(() =>
+                                {
+                                    richTextBox3.AppendText(LogUtils.FormatLog("Saving cache for result \"" + context.Request.QueryString[0] + "\""));
+                                    File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(tor1, Newtonsoft.Json.Formatting.Indented));
+                                }));
+                            }
+                        }
+                        else
+                        {
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 404;
+                            status.StatusMessage = "No torrents found.";
+                            status.Torrents = null;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            if (guna2ToggleSwitch10.Checked)
+                                isSearchingAlready = false;
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                        }
+                    }
+                });
+                server.Start();
+                guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                guna2MessageDialog1.Show("HTTP Server started.\n" + server.AddAvailableLocalPrefix(), "Information");
+                richTextBox3.AppendText(LogUtils.FormatLog("HTTP Server Started > " + server.AddAvailableLocalPrefix()));
+                if (guna2ToggleSwitch11.Checked)
+                    Process.Start(server.AddAvailableLocalPrefix() + "torrents?searchTerm=deadpool 2");
+            }
         }
 
 
-        private static List<Torrent> Torrents = new List<Torrent>();
-        private static List<string> Trackers = new List<string>();
-        public static int indexCounter = 0;
-        private static bool isGettingMagnet = false;
-
+        
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             guna2TabControl1.Enabled = false;
@@ -45,6 +197,7 @@ namespace Piatier
                 guna2MessageDialog1.Icon = MessageDialogIcon.Error;
                 guna2MessageDialog1.Show("Search arg is null or nothing. Please enter something.", "Error");
                 richTextBox3.AppendText(LogUtils.FormatLog("I dont think you can search nothing."));
+                guna2TabControl1.Enabled = true;
                 return;
             }
 
@@ -233,6 +386,12 @@ namespace Piatier
         {
             if(e.KeyCode == Keys.Enter)
                 guna2Button1_Click(sender, e);
+
+            if(e.KeyCode == Keys.Tab)
+            {
+                Thread.Sleep(200);
+                guna2Button2_Click(sender, e);
+            }
         }
 
         private void guna2Button3_Click(object sender, EventArgs e)
@@ -377,10 +536,16 @@ namespace Piatier
                 foreach (var t in tor)
                     Torrents.Add(t);
 
-                tor = Sources.YTS.GetTorrents(guna2TextBox1.Text);
-                if (tor.Count() < 0) return;
-                foreach (var t in tor)
-                    Torrents.Add(t);
+                try {
+                    tor = Sources.YTS.GetTorrents(guna2TextBox1.Text);
+                    if (tor.Count() < 0) return;
+                    foreach (var t in tor)
+                        Torrents.Add(t);
+                }
+                catch
+                {
+                    richTextBox3.AppendText(LogUtils.FormatLog("Failed YTS Search \"" + guna2TextBox1.Text + "\""));
+                }
 
                 this.Invoke(new Action(() =>
                 {
@@ -559,6 +724,189 @@ namespace Piatier
                     guna2MessageDialog1.Show("IP: "+ip, "Information");
                 }));
             }).Start();
+        }
+
+        private string[] searchTerms =
+        {
+            "Deadpool", "Cyberpunk", "Edgerunner", "Home Alone", "Spiderman", "Deadpool 2", "Marvel", "The Flash", "Glasswire", "Ida Pro", "Hogwarts Legacy", "Rick N Morty", "Rick And Morty", "Rick & Morty", "Solar Opposites", "The Office", "Hancock", "Simpsons", "The Simpsons", "Daddy Day Care", "Disney Collection", "Disney Movies", "Disney", "Marvel Movies", "720p", "1080p", "4k", "1440p", "Movie", "Game", "Games", "Sons Of The Forest", "The Forest", "2049", "2012", "Toy Story", "Extraction", "Rio", "Doctor Strange", "Jumanji", "Spenser Confidential", "Night School", "Grown Ups", "Moana", "I Am Legend", "Jungle Cruise", "The Babadook", "Avengers", "6 Undeground", "Baby Driver", "Batman", "The Breakfast Club", "Bumblebee", "Transformers", "Captian America", "Harry Potter", "Back To The Future", "Creed", "The Witcher", "Game Of Thrones", "Highschool Dxd", "Hunter X Hunter", "Jojos Bizzare Adventure", "Death Note", "Squid Game", "Netlimiter", "Protonvpn", "Nordvpn", "Mullvadvpn", "Fiddler", "Crack", "Fiddler Crack", "Httpdebugger Crack", "Sex", "Porn", "Stepsis", "Step Mom", "Cocaine", "Chip N Dale", "Avatar", "The Fast And Furious", "Final Destination", "Ghostbusters", "The Purge", "Purge", "Hangover", "Grease", "Robots", "Forrest Gump", "The Hunger Games", "It", "It: Chapter Two", "It: Chapter 2", "It Chapter 2", "John Wick", "Iron Man", "Joker", "Kick Ass", "Kickass", "Men In Black", "Mib", "The Little Rascals", "The Magician", "Magic Mike", "Chappie", "The Conjuring", "Dark Pheonix", "Blade: Trinity", "Blade", "Black Panther", "Black Widow", "Big Hero 6", "Ant-man", "Antman", "21 Jump Street", "22 Jump Street", "The Amazing Spiderman", "The Batman", "Inside Out", "Zootopia", "Lilo And Stitch", "Logan", "Pacific Rim", "Ready Player One", "Saving Private Ryan", "Scooby Doo", "Scream", "The Shining", "Pirates Of Carribbean", "A Quiet Place", "Rattatouille", "Rat Race", "The Nun", "Sonic The Hedgehog", "Shrek", "Shrek 2", "Ted", "Ted 2", "Suicide Squad", "The Suicide Squad", "The Terminator", "Real Steel", "Titanic", "Zombieland", "Zombieland Doubletap", "World War Z", "Herbie", "The Nun", "Saloum", "A Wounded Fawn", "Sissy", "The Conjuring", "X", "Prey", "The Karate Kid", "Piggy", "Hatching", "Gladiator", "Barbarian", "The Purge", "The Black Phone", "Grimcutty", "Medusa"
+        };
+        private void guna2ToggleSwitch7_CheckedChanged(object sender, EventArgs e)
+        {
+            if(guna2ToggleSwitch7.Checked)
+            {
+                // 
+                // Work in progress. It does work but dont know if i should put it fully in.
+                // Auto complete list.
+                AutoCompleteStringCollection sourceName = new AutoCompleteStringCollection();
+                searchTerms = searchTerms.ToList().Distinct().ToArray();
+
+                foreach (string name in searchTerms)
+                    sourceName.Add(name);
+
+                guna2TextBox1.AutoCompleteCustomSource = sourceName;
+                guna2TextBox1.AutoCompleteMode = AutoCompleteMode.Append;
+                guna2TextBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            }
+            else
+            {
+                guna2TextBox1.AutoCompleteCustomSource = null;
+                guna2TextBox1.AutoCompleteMode = AutoCompleteMode.None;
+                guna2TextBox1.AutoCompleteSource = AutoCompleteSource.None;
+            }
+        }
+
+        private void guna2Button4_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\piatier-cache"))
+            {
+                var files = Directory.GetFiles(Directory.GetCurrentDirectory()+"\\piatier-cache");
+                foreach(var file in files)
+                    try { File.Delete(file); } catch { }
+
+                guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                guna2MessageDialog1.Show("Deleted cache files.", "Information");
+            }
+            else
+            {
+                guna2MessageDialog1.Icon = MessageDialogIcon.Error;
+                guna2MessageDialog1.Show("Could not find cache directory.", "Error");
+            }
+        }
+
+        bool isSearchingAlready = false;
+        private void guna2ToggleSwitch9_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guna2ToggleSwitch9.Checked)
+            {
+                server = new LightHttpServer();
+                server.HandlesPath("/", async (context, cancellationToken) =>
+                {
+                    context.Response.Redirect("/torrents?searchTerm=deadpool 2");
+                });
+                server.HandlesPath("/torrents", async (context, cancellationToken) => {
+                    if (context.Request.RawUrl.Contains("?searchTerm") && context.Request.RawUrl.Split('?')[1].StartsWith("searchTerm"))
+                    {
+                        context.Response.ContentEncoding = Encoding.UTF8;
+                        context.Response.ContentType = "application/json";
+                        if(guna2ToggleSwitch10.Checked)
+                        if (isSearchingAlready)
+                        {
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 429;
+                            status.StatusMessage = "Searching for other results. Please try again in a minute.";
+                            status.Torrents = null;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                            return;
+                        }
+
+                        if (string.IsNullOrEmpty(context.Request.QueryString[0]))
+                        {
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 500;
+                            status.StatusMessage = "Search arg is null or nothing. Please enter something.";
+                            status.Torrents = null;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            if (guna2ToggleSwitch10.Checked)
+                                isSearchingAlready = false;
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                            return;
+                        }
+
+                        isSearchingAlready = true;
+                        var tor = new List<Torrent>();
+                        var tor1 = new List<Torrent>();
+                        var fileName = CleanName(context.Request.QueryString[0]);
+                        if (File.Exists($"./piatier-cache/{fileName}.json"))
+                        {
+                            tor1 = CacheUtils.GetCache(fileName, 0);
+                        }
+                        else
+                        {
+                            tor = Sources.PirateBay.GetTorrents(context.Request.QueryString[0]);
+                            if (tor.Count() < 0) return;
+                            foreach (var t in tor)
+                                tor1.Add(t);
+
+                            tor = Sources._1337x.GetTorrents(context.Request.QueryString[0]);
+                            if (tor.Count() < 0) return;
+                            foreach (var t in tor)
+                                tor1.Add(t);
+
+                            tor = Sources.Kickass.GetTorrents(context.Request.QueryString[0]);
+                            if (tor.Count() < 0) return;
+                            foreach (var t in tor)
+                                tor1.Add(t);
+
+                            try
+                            {
+                                tor = Sources.YTS.GetTorrents(context.Request.QueryString[0]);
+                                if (tor.Count() < 0) return;
+                                foreach (var t in tor)
+                                    tor1.Add(t);
+                            }
+                            catch
+                            {
+                            }
+                        }
+
+
+                        if (tor1.Count > 0)
+                        {
+                            tor1.Sort((c, y) => int.Parse(c.seeders) - int.Parse(y.seeders));
+                            tor1.Reverse();
+                            tor1 = tor1.Distinct().ToList();
+
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 200;
+                            status.StatusMessage = "Found " + tor1.Count + " torrents.";
+                            status.Torrents = tor1;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            if (guna2ToggleSwitch10.Checked)
+                                isSearchingAlready = false;
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+
+                            if (!File.Exists($"./piatier-cache/{fileName}.json"))
+                            {
+                                this.Invoke(new Action(() =>
+                                {
+                                    richTextBox3.AppendText(LogUtils.FormatLog("Saving cache for result \"" + context.Request.QueryString[0] + "\""));
+                                    File.WriteAllText($"./piatier-cache/{fileName}.json", JsonConvert.SerializeObject(tor1, Newtonsoft.Json.Formatting.Indented));
+                                }));
+                            }
+                        }
+                        else
+                        {
+                            HTTPStatus status = new HTTPStatus();
+                            status.StatusCode = 404;
+                            status.StatusMessage = "No torrents found.";
+                            status.Torrents = null;
+                            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(status, Newtonsoft.Json.Formatting.Indented));
+                            if (guna2ToggleSwitch10.Checked)
+                                isSearchingAlready = false;
+                            await context.Response.OutputStream.WriteAsync(bytes, 0, bytes.Length);
+                        }
+                    }
+                });
+                server.Start();
+                guna2MessageDialog1.Icon = MessageDialogIcon.Information;
+                guna2MessageDialog1.Show("HTTP Server started.\n"+ server.AddAvailableLocalPrefix(), "Information");
+                richTextBox3.AppendText(LogUtils.FormatLog("HTTP Server Started > " + server.AddAvailableLocalPrefix()));
+                if (guna2ToggleSwitch11.Checked)
+                    Process.Start(server.AddAvailableLocalPrefix()+"torrents?searchTerm=deadpool 2");
+            }
+            if (!guna2ToggleSwitch9.Checked && server != null)
+            {
+                richTextBox3.AppendText(LogUtils.FormatLog("HTTP Server Stopped"));
+                server.Stop();
+                server.Dispose();
+                server = null;
+            }
+        }
+
+        private void guna2ToggleSwitch10_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

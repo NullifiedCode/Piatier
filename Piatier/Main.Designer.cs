@@ -63,6 +63,12 @@
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.guna2GroupBox8 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2ToggleSwitch9 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2GroupBox7 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2ToggleSwitch7 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2GroupBox6 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -88,6 +94,7 @@
             this.guna2GroupBox2 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2ToggleSwitch2 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
@@ -96,6 +103,10 @@
             this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.guna2HtmlToolTip1 = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
+            this.guna2ToggleSwitch10 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2ToggleSwitch11 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2HtmlLabel16 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
@@ -103,6 +114,8 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.guna2GroupBox8.SuspendLayout();
+            this.guna2GroupBox7.SuspendLayout();
             this.guna2GroupBox6.SuspendLayout();
             this.guna2GroupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown1)).BeginInit();
@@ -484,6 +497,8 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tabPage3.Controls.Add(this.guna2GroupBox8);
+            this.tabPage3.Controls.Add(this.guna2GroupBox7);
             this.tabPage3.Controls.Add(this.guna2GroupBox6);
             this.tabPage3.Controls.Add(this.guna2GroupBox5);
             this.tabPage3.Controls.Add(this.guna2GroupBox4);
@@ -495,6 +510,101 @@
             this.tabPage3.Size = new System.Drawing.Size(1117, 515);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Settings & Logs";
+            // 
+            // guna2GroupBox8
+            // 
+            this.guna2GroupBox8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox8.BorderRadius = 5;
+            this.guna2GroupBox8.Controls.Add(this.guna2ToggleSwitch11);
+            this.guna2GroupBox8.Controls.Add(this.guna2HtmlLabel16);
+            this.guna2GroupBox8.Controls.Add(this.guna2ToggleSwitch10);
+            this.guna2GroupBox8.Controls.Add(this.guna2HtmlLabel15);
+            this.guna2GroupBox8.Controls.Add(this.guna2ToggleSwitch9);
+            this.guna2GroupBox8.Controls.Add(this.guna2HtmlLabel14);
+            this.guna2GroupBox8.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2GroupBox8.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2GroupBox8.ForeColor = System.Drawing.Color.DarkGray;
+            this.guna2GroupBox8.Location = new System.Drawing.Point(834, 3);
+            this.guna2GroupBox8.Name = "guna2GroupBox8";
+            this.guna2GroupBox8.Size = new System.Drawing.Size(145, 164);
+            this.guna2GroupBox8.TabIndex = 12;
+            this.guna2GroupBox8.Text = "HTTP Server";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2GroupBox8, "HTTP Server Settings (Experimental)");
+            // 
+            // guna2ToggleSwitch9
+            // 
+            this.guna2ToggleSwitch9.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch9.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch9.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch9.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch9.Location = new System.Drawing.Point(7, 49);
+            this.guna2ToggleSwitch9.Name = "guna2ToggleSwitch9";
+            this.guna2ToggleSwitch9.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch9.TabIndex = 10;
+            this.guna2ToggleSwitch9.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch9.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch9.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch9.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch9.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch9_CheckedChanged);
+            // 
+            // guna2HtmlLabel14
+            // 
+            this.guna2HtmlLabel14.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel14.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel14.Location = new System.Drawing.Point(48, 49);
+            this.guna2HtmlLabel14.Name = "guna2HtmlLabel14";
+            this.guna2HtmlLabel14.Size = new System.Drawing.Size(47, 20);
+            this.guna2HtmlLabel14.TabIndex = 9;
+            this.guna2HtmlLabel14.Text = "On/Off";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel14, "Starts a local HTTP Server used for developers and external use from other comput" +
+        "ers. Can also be used for public use if port forwarded.");
+            // 
+            // guna2GroupBox7
+            // 
+            this.guna2GroupBox7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox7.BorderRadius = 5;
+            this.guna2GroupBox7.Controls.Add(this.guna2HtmlLabel13);
+            this.guna2GroupBox7.Controls.Add(this.guna2ToggleSwitch7);
+            this.guna2GroupBox7.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.guna2GroupBox7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2GroupBox7.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2GroupBox7.ForeColor = System.Drawing.Color.DarkGray;
+            this.guna2GroupBox7.Location = new System.Drawing.Point(521, 88);
+            this.guna2GroupBox7.Name = "guna2GroupBox7";
+            this.guna2GroupBox7.Size = new System.Drawing.Size(307, 79);
+            this.guna2GroupBox7.TabIndex = 8;
+            this.guna2GroupBox7.Text = "Search Settings (Local)";
+            // 
+            // guna2HtmlLabel13
+            // 
+            this.guna2HtmlLabel13.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel13.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel13.Location = new System.Drawing.Point(47, 49);
+            this.guna2HtmlLabel13.Name = "guna2HtmlLabel13";
+            this.guna2HtmlLabel13.Size = new System.Drawing.Size(152, 20);
+            this.guna2HtmlLabel13.TabIndex = 7;
+            this.guna2HtmlLabel13.Text = "Auto Complete Search";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel13, "Tries to auto complete what you are searching for. This is in a experimental phas" +
+        "e. Doesnt have a lot of phrases");
+            // 
+            // guna2ToggleSwitch7
+            // 
+            this.guna2ToggleSwitch7.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch7.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch7.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch7.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch7.Location = new System.Drawing.Point(6, 49);
+            this.guna2ToggleSwitch7.Name = "guna2ToggleSwitch7";
+            this.guna2ToggleSwitch7.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch7.TabIndex = 0;
+            this.guna2ToggleSwitch7.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch7.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch7.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch7.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch7.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch7_CheckedChanged);
             // 
             // guna2GroupBox6
             // 
@@ -509,11 +619,11 @@
             this.guna2GroupBox6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.guna2GroupBox6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2GroupBox6.ForeColor = System.Drawing.Color.DarkGray;
-            this.guna2GroupBox6.Location = new System.Drawing.Point(834, 3);
+            this.guna2GroupBox6.Location = new System.Drawing.Point(985, 3);
             this.guna2GroupBox6.Name = "guna2GroupBox6";
-            this.guna2GroupBox6.Size = new System.Drawing.Size(275, 129);
+            this.guna2GroupBox6.Size = new System.Drawing.Size(124, 164);
             this.guna2GroupBox6.TabIndex = 8;
-            this.guna2GroupBox6.Text = "Links For Torrenting & Privacy";
+            this.guna2GroupBox6.Text = "Links For Torrenting";
             this.guna2HtmlToolTip1.SetToolTip(this.guna2GroupBox6, "These links are for privacy and security of the user. Please look into these to h" +
         "elp with torrenting. These are my recommended programs.");
             // 
@@ -529,7 +639,7 @@
             this.guna2Button7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(192)))));
             this.guna2Button7.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button7.ForeColor = System.Drawing.Color.White;
-            this.guna2Button7.Location = new System.Drawing.Point(177, 105);
+            this.guna2Button7.Location = new System.Drawing.Point(15, 138);
             this.guna2Button7.Name = "guna2Button7";
             this.guna2Button7.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
             this.guna2Button7.Size = new System.Drawing.Size(95, 21);
@@ -542,11 +652,11 @@
             // guna2HtmlLabel11
             // 
             this.guna2HtmlLabel11.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel11.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel11.Location = new System.Drawing.Point(99, 49);
+            this.guna2HtmlLabel11.Location = new System.Drawing.Point(28, 117);
             this.guna2HtmlLabel11.Name = "guna2HtmlLabel11";
-            this.guna2HtmlLabel11.Size = new System.Drawing.Size(73, 20);
+            this.guna2HtmlLabel11.Size = new System.Drawing.Size(68, 18);
             this.guna2HtmlLabel11.TabIndex = 11;
             this.guna2HtmlLabel11.Text = "Simplewall";
             this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel11, "Simplewall is a simplistic firewall. Kinda on the lines of NetLimiter but its ope" +
@@ -557,11 +667,11 @@
             // guna2HtmlLabel10
             // 
             this.guna2HtmlLabel10.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel10.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel10.Location = new System.Drawing.Point(11, 98);
+            this.guna2HtmlLabel10.Location = new System.Drawing.Point(36, 91);
             this.guna2HtmlLabel10.Name = "guna2HtmlLabel10";
-            this.guna2HtmlLabel10.Size = new System.Drawing.Size(57, 20);
+            this.guna2HtmlLabel10.Size = new System.Drawing.Size(51, 18);
             this.guna2HtmlLabel10.TabIndex = 10;
             this.guna2HtmlLabel10.Text = "Proxifier";
             this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel10, "Proxifier is a proxy tool used for many things. But it allows for any program to " +
@@ -572,11 +682,11 @@
             // guna2HtmlLabel9
             // 
             this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel9.Location = new System.Drawing.Point(3, 72);
+            this.guna2HtmlLabel9.Location = new System.Drawing.Point(28, 65);
             this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
-            this.guna2HtmlLabel9.Size = new System.Drawing.Size(71, 20);
+            this.guna2HtmlLabel9.Size = new System.Drawing.Size(63, 18);
             this.guna2HtmlLabel9.TabIndex = 9;
             this.guna2HtmlLabel9.Text = "qBittorrent";
             this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel9, "If you\'re not using this torrent client. Something is wrong with you. This client" +
@@ -586,11 +696,11 @@
             // guna2HtmlLabel8
             // 
             this.guna2HtmlLabel8.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel8.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel8.Location = new System.Drawing.Point(3, 49);
+            this.guna2HtmlLabel8.Location = new System.Drawing.Point(24, 42);
             this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            this.guna2HtmlLabel8.Size = new System.Drawing.Size(76, 20);
+            this.guna2HtmlLabel8.Size = new System.Drawing.Size(71, 18);
             this.guna2HtmlLabel8.TabIndex = 8;
             this.guna2HtmlLabel8.Text = "MulladVPN";
             this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel8, "A wonderful user friendly VPN that is new and specializes in Privacy and Speed");
@@ -609,9 +719,9 @@
             this.guna2GroupBox5.ForeColor = System.Drawing.Color.DarkGray;
             this.guna2GroupBox5.Location = new System.Drawing.Point(521, 3);
             this.guna2GroupBox5.Name = "guna2GroupBox5";
-            this.guna2GroupBox5.Size = new System.Drawing.Size(307, 129);
+            this.guna2GroupBox5.Size = new System.Drawing.Size(307, 79);
             this.guna2GroupBox5.TabIndex = 7;
-            this.guna2GroupBox5.Text = "Torrent Settings";
+            this.guna2GroupBox5.Text = "Torrent Settings (Local)";
             // 
             // guna2HtmlLabel7
             // 
@@ -643,6 +753,7 @@
             this.guna2NumericUpDown1.Size = new System.Drawing.Size(100, 20);
             this.guna2NumericUpDown1.TabIndex = 1;
             this.guna2NumericUpDown1.UpDownButtonFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2NumericUpDown1.UpDownButtonForeColor = System.Drawing.Color.White;
             this.guna2NumericUpDown1.Value = new decimal(new int[] {
             25,
             0,
@@ -680,9 +791,9 @@
             this.guna2GroupBox4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.guna2GroupBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2GroupBox4.ForeColor = System.Drawing.Color.DarkGray;
-            this.guna2GroupBox4.Location = new System.Drawing.Point(521, 138);
+            this.guna2GroupBox4.Location = new System.Drawing.Point(521, 178);
             this.guna2GroupBox4.Name = "guna2GroupBox4";
-            this.guna2GroupBox4.Size = new System.Drawing.Size(593, 369);
+            this.guna2GroupBox4.Size = new System.Drawing.Size(593, 329);
             this.guna2GroupBox4.TabIndex = 7;
             this.guna2GroupBox4.Text = "Logs";
             // 
@@ -718,7 +829,7 @@
             this.richTextBox3.Location = new System.Drawing.Point(0, 40);
             this.richTextBox3.Name = "richTextBox3";
             this.richTextBox3.ReadOnly = true;
-            this.richTextBox3.Size = new System.Drawing.Size(593, 329);
+            this.richTextBox3.Size = new System.Drawing.Size(593, 289);
             this.richTextBox3.TabIndex = 1;
             this.richTextBox3.Text = "";
             // 
@@ -740,9 +851,9 @@
             this.guna2GroupBox3.ForeColor = System.Drawing.Color.DarkGray;
             this.guna2GroupBox3.Location = new System.Drawing.Point(220, 3);
             this.guna2GroupBox3.Name = "guna2GroupBox3";
-            this.guna2GroupBox3.Size = new System.Drawing.Size(295, 129);
+            this.guna2GroupBox3.Size = new System.Drawing.Size(295, 164);
             this.guna2GroupBox3.TabIndex = 6;
-            this.guna2GroupBox3.Text = "Filter Settings";
+            this.guna2GroupBox3.Text = "Filter Settings (Local)";
             // 
             // guna2ToggleSwitch6
             // 
@@ -868,9 +979,9 @@
             this.guna2GroupBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.guna2GroupBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2GroupBox2.ForeColor = System.Drawing.Color.DarkGray;
-            this.guna2GroupBox2.Location = new System.Drawing.Point(3, 138);
+            this.guna2GroupBox2.Location = new System.Drawing.Point(3, 178);
             this.guna2GroupBox2.Name = "guna2GroupBox2";
-            this.guna2GroupBox2.Size = new System.Drawing.Size(512, 369);
+            this.guna2GroupBox2.Size = new System.Drawing.Size(512, 329);
             this.guna2GroupBox2.TabIndex = 6;
             this.guna2GroupBox2.Text = "Trackers List";
             // 
@@ -885,7 +996,7 @@
             this.richTextBox2.Location = new System.Drawing.Point(0, 40);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox2.Size = new System.Drawing.Size(512, 329);
+            this.richTextBox2.Size = new System.Drawing.Size(512, 289);
             this.richTextBox2.TabIndex = 1;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -893,6 +1004,7 @@
             // 
             this.guna2GroupBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.guna2GroupBox1.BorderRadius = 5;
+            this.guna2GroupBox1.Controls.Add(this.guna2Button4);
             this.guna2GroupBox1.Controls.Add(this.guna2Button6);
             this.guna2GroupBox1.Controls.Add(this.guna2HtmlLabel2);
             this.guna2GroupBox1.Controls.Add(this.guna2ToggleSwitch2);
@@ -904,9 +1016,29 @@
             this.guna2GroupBox1.ForeColor = System.Drawing.Color.DarkGray;
             this.guna2GroupBox1.Location = new System.Drawing.Point(3, 3);
             this.guna2GroupBox1.Name = "guna2GroupBox1";
-            this.guna2GroupBox1.Size = new System.Drawing.Size(211, 129);
+            this.guna2GroupBox1.Size = new System.Drawing.Size(211, 164);
             this.guna2GroupBox1.TabIndex = 5;
-            this.guna2GroupBox1.Text = "Cache Settings";
+            this.guna2GroupBox1.Text = "Cache Settings (Local)";
+            // 
+            // guna2Button4
+            // 
+            this.guna2Button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button4.BorderRadius = 5;
+            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(192)))));
+            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button4.ForeColor = System.Drawing.Color.White;
+            this.guna2Button4.Location = new System.Drawing.Point(6, 133);
+            this.guna2Button4.Name = "guna2Button4";
+            this.guna2Button4.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2Button4.Size = new System.Drawing.Size(197, 21);
+            this.guna2Button4.TabIndex = 7;
+            this.guna2Button4.Text = "Delete Cache";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2Button4, "Clears all torrent data and torrents display.");
+            this.guna2Button4.Click += new System.EventHandler(this.guna2Button4_Click);
             // 
             // guna2Button6
             // 
@@ -919,7 +1051,7 @@
             this.guna2Button6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(192)))));
             this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button6.ForeColor = System.Drawing.Color.White;
-            this.guna2Button6.Location = new System.Drawing.Point(6, 97);
+            this.guna2Button6.Location = new System.Drawing.Point(6, 106);
             this.guna2Button6.Name = "guna2Button6";
             this.guna2Button6.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
             this.guna2Button6.Size = new System.Drawing.Size(197, 21);
@@ -1004,6 +1136,62 @@
             this.guna2AnimateWindow1.Interval = 300;
             this.guna2AnimateWindow1.TargetForm = this;
             // 
+            // guna2ToggleSwitch10
+            // 
+            this.guna2ToggleSwitch10.Checked = true;
+            this.guna2ToggleSwitch10.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch10.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch10.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch10.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch10.Location = new System.Drawing.Point(7, 75);
+            this.guna2ToggleSwitch10.Name = "guna2ToggleSwitch10";
+            this.guna2ToggleSwitch10.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch10.TabIndex = 12;
+            this.guna2ToggleSwitch10.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch10.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch10.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch10.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch10.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch10_CheckedChanged);
+            // 
+            // guna2HtmlLabel15
+            // 
+            this.guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel15.Location = new System.Drawing.Point(48, 75);
+            this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
+            this.guna2HtmlLabel15.Size = new System.Drawing.Size(73, 20);
+            this.guna2HtmlLabel15.TabIndex = 11;
+            this.guna2HtmlLabel15.Text = "Limit Reqs";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel15, "Waits for other searches to complete before allowing another search.");
+            // 
+            // guna2ToggleSwitch11
+            // 
+            this.guna2ToggleSwitch11.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ToggleSwitch11.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(192)))));
+            this.guna2ToggleSwitch11.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch11.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch11.Location = new System.Drawing.Point(7, 101);
+            this.guna2ToggleSwitch11.Name = "guna2ToggleSwitch11";
+            this.guna2ToggleSwitch11.Size = new System.Drawing.Size(35, 20);
+            this.guna2ToggleSwitch11.TabIndex = 14;
+            this.guna2ToggleSwitch11.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch11.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.guna2ToggleSwitch11.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch11.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // guna2HtmlLabel16
+            // 
+            this.guna2HtmlLabel16.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel16.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel16.Location = new System.Drawing.Point(48, 101);
+            this.guna2HtmlLabel16.Name = "guna2HtmlLabel16";
+            this.guna2HtmlLabel16.Size = new System.Drawing.Size(77, 20);
+            this.guna2HtmlLabel16.TabIndex = 13;
+            this.guna2HtmlLabel16.Text = "Open Page";
+            this.guna2HtmlToolTip1.SetToolTip(this.guna2HtmlLabel16, "Opens a search page automatically with the default browser.");
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1029,6 +1217,10 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.guna2GroupBox8.ResumeLayout(false);
+            this.guna2GroupBox8.PerformLayout();
+            this.guna2GroupBox7.ResumeLayout(false);
+            this.guna2GroupBox7.PerformLayout();
             this.guna2GroupBox6.ResumeLayout(false);
             this.guna2GroupBox6.PerformLayout();
             this.guna2GroupBox5.ResumeLayout(false);
@@ -1103,6 +1295,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Size;
         private System.Windows.Forms.DataGridViewTextBoxColumn Seeders;
+        private Guna.UI2.WinForms.Guna2GroupBox guna2GroupBox7;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel13;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch7;
+        private Guna.UI2.WinForms.Guna2Button guna2Button4;
+        private Guna.UI2.WinForms.Guna2GroupBox guna2GroupBox8;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch9;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel14;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch10;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel15;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch11;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel16;
     }
 }
 
